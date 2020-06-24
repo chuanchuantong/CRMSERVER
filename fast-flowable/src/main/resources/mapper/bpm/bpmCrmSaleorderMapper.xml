@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmSaleorderMapper">
+    
+    <resultMap type="bpmCrmSaleorderEntity" id="bpmCrmSaleorderResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="saleStatus"    column="sale_status"    />
+        <result property="saleCustomername"    column="sale_customername"    />
+        <result property="saleAddress"    column="sale_address"    />
+        <result property="salePhone"    column="sale_phone"    />
+        <result property="saleEmail"    column="sale_email"    />
+        <result property="saleWechat"    column="sale_wechat"    />
+        <result property="saleId"    column="sale_id"    />
+        <result property="saleDriverlicense"    column="sale_driverlicense"    />
+        <result property="salePassport"    column="sale_passport"    />
+        <result property="saleResidenceinfo"    column="sale_residenceinfo"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="salePerson"    column="sale_person"    />
+        <result property="saleTeam"    column="sale_team"    />
+        <result property="saleManager"    column="sale_manager"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmSaleorderVo">
+        select id, process_instance_id, sale_code, sale_status, sale_customername, sale_address, sale_phone, sale_email, sale_wechat, sale_id, sale_driverlicense, sale_passport, sale_residenceinfo, create_by, create_time, update_by, update_time, remark, sale_person, sale_team, sale_manager, user_id, del_flag from bpm_crm_saleorder
+    </sql>
+
+    <select id="findPage" resultType="com.j2eefast.flowable.bpm.entity.BpmCrmFindListEntity">
+        SELECT DISTINCT
+        t1.ID_ AS processInstanceId,
+        t1.PROC_DEF_ID_ as processDefinitionId,
+        t1.NAME_ AS formName,
+        t1.TENANT_ID_ AS systemSn,
+        t1.BUSINESS_KEY_ AS businessKey,
+        t1.START_TIME_ AS startTime,
+        t1.END_TIME_ AS endTime,
+        (CASE WHEN t1.END_TIME_ IS NULL THEN '1'
+        ELSE '0' END) AS status,
+        (CASE WHEN (t3.`SUSPENSION_STATE_` = 2 OR t5.`SUSPENSION_STATE_` =2) THEN 2
+        ELSE 1 END) AS suspensionState,
+        t4.`prefix_url` AS prefixUrl,
+        t4.`approval_type` AS approvalType,
+        t4.`apply_type` AS applyType,
+        t2.ID_ AS starterId,
+        t4.`ID` as taskId,
+        t2.FIRST_ as starter,
+        t.*
+        FROM
+        bpm_crm_saleorder t
+        inner join
+        act_hi_procinst t1 on t.process_instance_id=t1.ID_
+        LEFT JOIN act_id_user t2 ON t1.START_USER_ID_ = t2.ID_
+        LEFT JOIN  `act_re_procdef` t3 ON t1.`PROC_DEF_ID_` = t3.`ID_`
+        LEFT JOIN `bpm_task_from` t4 ON t4.`process_definition_key` = t1.`PROC_DEF_ID_`
+        LEFT JOIN act_ru_execution t5 ON t1.PROC_INST_ID_ = t5.PROC_INST_ID_
+        where 1 = 1 and t.del_flag=0
+        <if test = "sql_filter !=null and sql_filter!=''">
+            and ${sql_filter}
+        </if>
+    </select>
+
+<!--
+    <update id="updatebpmCrmSaleorder" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmSaleorderEntity">
+        update bpm_crm_saleorder
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="saleStatus != null ">sale_status = #{saleStatus},</if>
+        <if test="saleCustomername != null  and saleCustomername != ''">sale_customername = #{saleCustomername},</if>
+        <if test="saleAddress != null  and saleAddress != ''">sale_address = #{saleAddress},</if>
+        <if test="salePhone != null  and salePhone != ''">sale_phone = #{salePhone},</if>
+        <if test="saleEmail != null  and saleEmail != ''">sale_email = #{saleEmail},</if>
+        <if test="saleWechat != null  and saleWechat != ''">sale_wechat = #{saleWechat},</if>
+        <if test="saleId != null ">sale_id = #{saleId},</if>
+        <if test="saleDriverlicense != null  and saleDriverlicense != ''">sale_driverlicense = #{saleDriverlicense},</if>
+        <if test="salePassport != null  and salePassport != ''">sale_passport = #{salePassport},</if>
+        <if test="saleResidenceinfo != null  and saleResidenceinfo != ''">sale_residenceinfo = #{saleResidenceinfo},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="salePerson != null  and salePerson != ''">sale_person = #{salePerson},</if>
+        <if test="saleTeam != null  and saleTeam != ''">sale_team = #{saleTeam},</if>
+        <if test="saleManager != null  and saleManager != ''">sale_manager = #{saleManager},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmSaleorderById" parameterType="String">
+        delete from bpm_crm_saleorder where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_saleorder where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

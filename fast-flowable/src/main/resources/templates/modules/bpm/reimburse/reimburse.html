@@ -1,0 +1,140 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="报销列表">
+</@header>
+<@search fromId="reimburse-form">
+<div class="select-list">
+    <ul>
+        <li><@ctx.i18n text = "订单号"/>：<input type="text" name="saleCode"/></li>
+        <li><@ctx.i18n text = "销售员"/>：<input type="text" name="saleUserid"/></li>
+        <li><@ctx.i18n text = "销售订单编号"/>：<input type="text" name="saleOrderNumber"/></li>
+        <li><@ctx.i18n text = "车辆识别号"/>：<input type="text" name="outCarVin"/></li>
+        <li><@ctx.i18n text = "车型"/>：<input type="text" name="outCarVehicle"/></li>
+        <li class="select-time">
+            费用发生日期：
+            <input type="text" class="time-input" placeholder="开始时间" name="beginReimburseTime"/>
+            <span>-</span>
+            <input type="text" class="time-input" placeholder="结束时间" name="endReimburseTime"/>
+        </li>
+        <li><@ctx.i18n text = "报销金额"/>：<input type="text" name="reimburseAmount"/></li>
+        <li><@ctx.i18n text = "凭证"/>：<input type="text" name="reimburseAttaFilepath"/></li>
+        <li><@ctx.i18n text = "审批金额"/>：<input type="text" name="cashierAmount"/></li>
+        <li>
+            <@ctx.i18n text = "出纳审批"/>：
+            <select name="cashierApproval" class="form-control">
+                <option value=""><@ctx.i18n text = "所有"/></option>
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <#if d.status =='0' >
+                        <option value="${d.dictValue}" text="${d.dictLabel}"><@ctx.i18n text = "${d.dictLabel}"/></option>
+                    </#if>
+                </#items>
+            </#list>
+            </select>
+        </li>
+        <li><@ctx.i18n text = "报销比例"/>：<input type="text" name="financeProportion"/></li>
+        <li><@ctx.i18n text = "报销金额"/>：<input type="text" name="financeAmount"/></li>
+        <li>
+            <@ctx.i18n text = "财务经理审批"/>：
+            <select name="financeApproval" class="form-control">
+                <option value=""><@ctx.i18n text = "所有"/></option>
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <#if d.status =='0' >
+                        <option value="${d.dictValue}" text="${d.dictLabel}"><@ctx.i18n text = "${d.dictLabel}"/></option>
+                    </#if>
+                </#items>
+            </#list>
+            </select>
+        </li>
+        <li>
+            <@ctx.i18n text = "会计审批"/>：
+            <select name="accountingApproval" class="form-control">
+                <option value=""><@ctx.i18n text = "所有"/></option>
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <#if d.status =='0' >
+                        <option value="${d.dictValue}" text="${d.dictLabel}"><@ctx.i18n text = "${d.dictLabel}"/></option>
+                    </#if>
+                </#items>
+            </#list>
+            </select>
+        </li>
+        <li>
+            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;&nbsp;<@ctx.i18n text = "查询"/></a>
+            <a class="btn btn-warning btn-rounded btn-sm" onclick="opt.form.reset()"><i class="fa fa-refresh"></i>&nbsp;<@ctx.i18n text = "重置"/></a>
+        </li>
+    </ul>
+</div>
+</@search>
+<@table tableId="bootstrap-table">
+    <@shiro.hasPermission name="bpm:reimburse:add">
+        <a class="btn btn-success" onclick="opt.operate.add()"><i class="fa fa-plus"></i>&nbsp;<@ctx.i18n text = "新增"/></a>
+    </@shiro.hasPermission>
+    <@shiro.hasPermission name="bpm:reimburse:edit">
+        <a class="btn btn-primary single disabled" onclick="opt.operate.edit()"><i class="fa fa-pencil-square-o"></i>&nbsp;<@ctx.i18n text = "修改"/></a>
+    </@shiro.hasPermission>
+    <@shiro.hasPermission name="bpm:reimburse:del">
+        <a class="btn btn-danger multiple disabled" onclick="opt.operate.delAll()"><i class="fa fa-remove"></i> <@ctx.i18n text = "删除"/></a>
+    </@shiro.hasPermission>
+</@table>
+<@footer>
+<script>
+    var editFlag = "${permission.hasPermi("bpm:reimburse:edit")}";
+    var listFlag = "${permission.hasPermi("bpm:reimburse:add")}";
+    var delFlag = "${permission.hasPermi("bpm:reimburse:del")}";
+    var visible = ${permission.isPermitteds("bpm:reimburse:edit,bpm:reimburse:del,bpm:reimburse:add")?string('true', 'false')};
+   var cashierApprovalDatas = ${dict.getDictListJson('sys_bpm_crm_passorclose')};
+   var financeApprovalDatas = ${dict.getDictListJson('sys_bpm_crm_passorclose')};
+   var accountingApprovalDatas = ${dict.getDictListJson('sys_bpm_crm_passorclose')};
+    var prefix = baseURL + "bpm/reimburse";
+
+    $(function() {
+        var options = {
+            url: prefix + "/list",
+            addUrl: prefix + "/add",
+            editUrl: prefix + "/edit/{id}",
+            delUrl: prefix + "/del",
+            modalName: "报销",
+            uniqueId:    'id'/* 唯一ID */                                                               ,
+            columns: [
+                         {title: $.i18n.prop("序号"), width: 5, align: "center", formatter: function (value, row, index) {
+                                    return $.table.serialNumber(index);
+                         }}
+                        ,{field : 'id',title : '<@ctx.i18n text = "主键"/>',visible: false}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                        ,{field : 'saleCode',title : '<@ctx.i18n text = "订单号"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                        ,{field : 'saleUserid',title : '<@ctx.i18n text = "销售员"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'saleOrderNumber',title : '<@ctx.i18n text = "销售订单编号"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'outCarVin',title : '<@ctx.i18n text = "车辆识别号"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'outCarVehicle',title : '<@ctx.i18n text = "车型"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'reimburseTime',title : '<@ctx.i18n text = "费用发生日期"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'reimburseAmount',title : '<@ctx.i18n text = "报销金额"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'reimburseAttaFilepath',title : '<@ctx.i18n text = "凭证"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'cashierAmount',title : '<@ctx.i18n text = "审批金额"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'cashierApproval',title : '<@ctx.i18n text = "出纳审批"/>',formatter: function(value, row, index) {
+                                return $.table.selectDictLabels(cashierApprovalDatas, value);
+                        }}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'cashierRemark',title : '<@ctx.i18n text = "备注"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'financeProportion',title : '<@ctx.i18n text = "报销比例"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'financeAmount',title : '<@ctx.i18n text = "报销金额"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'financeApproval',title : '<@ctx.i18n text = "财务经理审批"/>',formatter: function(value, row, index) {
+                                return $.table.selectDictLabels(financeApprovalDatas, value);
+                        }}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'financeRemark',title : '<@ctx.i18n text = "备注"/>'}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'accountingApproval',title : '<@ctx.i18n text = "会计审批"/>',formatter: function(value, row, index) {
+                                return $.table.selectDictLabels(accountingApprovalDatas, value);
+                        }}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        ,{field : 'accountingRemark',title : '<@ctx.i18n text = "会计备注"/>'}                             
+                        ,{title:"<@ctx.i18n text = "操作"/>",align: 'left',visible:visible,formatter: function(value, row, index) {
+                            var actions = [];
+                            actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="opt.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                            actions.push('<a class="btn btn-danger btn-xs ' + delFlag + '" href="javascript:void(0)" onclick="opt.operate.del(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                            return actions.join('');
+                        }}
+                    ]
+            };
+         $.table.init(options);
+     });
+</script>
+</@footer>
+</@pageTheme>

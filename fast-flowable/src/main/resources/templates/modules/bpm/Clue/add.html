@@ -1,0 +1,163 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="新增线索池">
+</@header>
+<@addorEdit fromId="form-Clue-add">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "简称" />:                 
+        </label>
+        <div class="col-sm-8"><input name="ShortHand" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "来源" />:                 
+        </label>
+        <div class="col-sm-8"><input name="Source" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "客户名称" />:                 
+        </label>
+        <div class="col-sm-8"><input name="CustomerName" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "客户地址" />:                 
+        </label>
+        <div class="col-sm-8"><input name="CustomerAddress" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "联系方式" />:                 
+        </label>
+        <div class="col-sm-8"><input name="ContactInfo" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "专业/行业" />:                 
+        </label>
+        <div class="col-sm-8"><input name="Industry" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "意向车型" />:                 
+        </label>
+        <div class="col-sm-8"><input name="IntentionCar" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "需求" />:                 
+        </label>
+        <div class="col-sm-8"><input name="Needs" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "预算" />:                 
+        </label>
+        <div class="col-sm-8"><input name="Budget" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "是否持币" />:                 
+        </label>
+        <div class="col-sm-8"><input name="IsHoldCash" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "现有车型" />:                 
+        </label>
+        <div class="col-sm-8"><input name="ExitsCar" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "计划提车时间" />:                 
+        </label>
+        <div class="col-sm-8"><input name="PlanTime" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "订单状态 -1 草稿  0 已提交 1待审批 2 已审批 3 已完成"/>：</label>
+        <div class="col-sm-8">
+            <div class="radio-box">
+                <input type="radio" name="CStatus" value="">
+                <label th:for="CStatus" th:text="未知"></label>
+            </div>
+            <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+        </div>
+    </div>
+     <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "销售提成" />:                 
+        </label>
+        <div class="col-sm-8"><input name="Royalty" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "OA" />:                 
+        </label>
+        <div class="col-sm-8"><input name="OAId" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "客户级别" />:                 
+        </label>
+        <div class="col-sm-8"><input name="Level" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "客户特点" />:                 
+        </label>
+        <div class="col-sm-8"><input name="CuStyles" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "创建人" />:                 
+        </label>
+        <div class="col-sm-8"><input name="CreateId" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "修改人" />:                 
+        </label>
+        <div class="col-sm-8"><input name="UpdateId" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "订单编号" />:                 
+        </label>
+        <div class="col-sm-8"><input name="FCode" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "用户id" />:                 
+        </label>
+        <div class="col-sm-8"><input name="UserId" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "备注" />:                 
+        </label>
+        <div class="col-sm-8"><input name="Remarks" class="form-control" type="text">            
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "客户信任度 单选按钮" />:                 
+        </label>
+        <div class="col-sm-8"><input name="Trusts" class="form-control" type="text">            
+        </div>
+    </div>
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    var prefix = baseURL + "bpm/Clue"
+    $("#form-Clue-add").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/add", $('#form-Clue-add').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

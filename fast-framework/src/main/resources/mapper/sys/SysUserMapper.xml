@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.framework.sys.mapper.SysUserMapper">
+
+    <resultMap type="sysUserEntity" id="sysUserResult">
+        <result property="userId"    column="user_id"    />
+        <result property="username"    column="username"    />
+        <result property="name"    column="name"    />
+        <result property="password"    column="password"    />
+        <result property="salt"    column="salt"    />
+        <result property="email"    column="email"    />
+        <result property="mobile"    column="mobile"    />
+        <result property="status"    column="status"    />
+        <result property="pwdSecurityLevel"    column="pwd_security_level"    />
+        <result property="pwdUpdateDate"    column="pwd_update_date"    />
+        <result property="compId"    column="comp_id"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="cardId"    column="card_id"    />
+        <result property="avatar"    column="avatar"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+
+    <sql id="sqlpage">
+        select u.user_id,
+        u.username, u.name,u.password,u.salt,u.email,u.mobile,u.status,u.card_id,u.create_time,
+        u.dept_id,u.comp_id,
+        <if test="_databaseId == 'oracle'">
+            nvl(c.name,'总公司') as comp_name,
+            listagg(l.role_name, ',') within group( order by u.user_id) as role_name
+        </if>
+        <if test="_databaseId == 'mysql'">
+            ifnull(c.name,"总公司") as comp_name,
+            GROUP_CONCAT(l.role_name) as role_name
+        </if>
+		from sys_user u
+		left join sys_comp c on u.comp_id = c.comp_id
+		left join sys_user_role r on u.user_id = r.user_id
+		left join sys_role l on r.role_id = l.role_id
+    </sql>
+
+    <sql id="selectsysUserVo">
+        select user_id as "userId", username as "username", name as "name", password as "password",
+        salt as "salt", email as "email", mobile as "mobile", status as "status", pwd_security_level as "pwdSecurityLevel",
+        pwd_update_date as "pwdUpdateDate", comp_id as "compId", dept_id as "deptId",
+        create_time as "createTime", card_id as "cardId", avatar as "avatar", update_time as "updateTime",
+        update_by as "updateBy", create_by as "createBy", remark as "remark" from sys_user
+    </sql>
+
+    <sql id="Base_Column_CompName">
+              select ur.name AS CompName
+              from  sys_user r
+              left join sys_comp ur on ur.comp_id = r.comp_id
+    </sql>
+
+    <sql id="selectRoleToUserVo">
+        select u.user_id as userId,
+        u.username, u.name,u.password,u.salt,u.email,u.mobile,u.status,u.card_id,u.create_time,
+        u.dept_id,u.comp_id,
+        <if test="_databaseId == 'oracle'">
+            nvl(c.name,'总公司') as comp_name
+        </if>
+        <if test="_databaseId == 'mysql'">
+            ifnull(c.name,"总公司") as comp_name
+        </if>
+		from sys_user u
+		left join sys_user_role r ON u.user_id = r.user_id
+		left join sys_comp c on u.comp_id = c.comp_id
+    </sql>
+
+    <!-- 更新用户 -->
+    <update id="updateUser" parameterType="sysUserEntity">
+        update sys_user
+        <set>
+            <if test="name != null and name != ''">name = #{name,jdbcType=VARCHAR},</if>
+            <if test="email != null and email != ''">email = #{email,jdbcType=VARCHAR},</if>
+            <if test="mobile != null and mobile != ''">mobile = #{mobile,jdbcType=VARCHAR},</if>
+            <if test="status != null and status != ''">status = #{status,jdbcType=INTEGER},</if>
+            <if test="compId != null">comp_id = #{compId,jdbcType=INTEGER},</if>
+            <if test="deptId != null">dept_id = #{deptId,jdbcType=INTEGER},</if>
+            <if test="cardId != null and cardId != ''">card_id = #{cardId,jdbcType=VARCHAR},</if>
+            <if test="avatar != null and avatar != ''">avatar = #{avatar,jdbcType=VARCHAR},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy,jdbcType=VARCHAR},</if>
+            <if test="remark != null and remark != ''">remark = #{remark,jdbcType=VARCHAR},</if>
+            update_time = sysdate()
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <!-- 修改密码-->
+    <update id="updatePassWord">
+        update sys_user
+        <set>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="salt != null and salt != ''">salt = #{salt},</if>
+            <if test="pwdSecurityLevel != null and pwdSecurityLevel != ''">pwd_security_level = #{pwdSecurityLevel},</if>
+            pwd_update_date = sysdate()
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <!-- 修改头像-->
+    <update id="updateAvatar">
+        update sys_user
+        <set>
+            <if test="avatar != null and avatar != ''">avatar = #{avatar,jdbcType=VARCHAR},</if>
+            update_time = sysdate()
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <select id="findUserByUserName" resultType="com.j2eefast.framework.sys.entity.SysUserEntity">
+        <include refid="selectsysUserVo"/>
+        where username = #{userName} and del_flag = '0'
+    </select>
+
+    <select id="findUserByMobile" resultType="com.j2eefast.framework.sys.entity.SysUserEntity">
+        <include refid="selectsysUserVo"/>
+        where mobile = #{mobile} and del_flag = '0'
+    </select>
+
+    <select id="findUserByEmail" resultType="com.j2eefast.framework.sys.entity.SysUserEntity">
+        <include refid="selectsysUserVo"/>
+        where email = #{email} and del_flag = '0'
+    </select>
+
+    <select id="findCompNameByUserId" resultType="String">
+        <include refid="Base_Column_CompName"/>
+        where r.user_id = #{userId} and r.del_flag != '1'
+    </select>
+
+    <!-- 查询用户的所有菜单ID -->
+    <select id="findAllMenuId" resultType="long">
+		select distinct rm.menu_id from sys_user_role ur
+			LEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id
+		where ur.user_id = #{userId}
+	</select>
+
+    <select id="findPage" resultType="com.j2eefast.framework.sys.entity.SysUserEntity">
+        <include refid="sqlpage"/>
+        where u.del_flag = '0'
+        <if test = "username !=null and username!=''">
+            AND u.username like
+            <if test="_databaseId == 'oracle'"> '%,'||#{username}||',%'</if>
+            <if test="_databaseId == 'mysql'"> concat('%', #{username}, '%')</if>
+        </if>
+        <if test = "status !=null and status!=''">
+            AND u.status = #{status}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND u.mobile like
+            <if test="_databaseId == 'oracle'"> '%,'||#{mobile}||',%'</if>
+            <if test="_databaseId == 'mysql'"> concat('%', #{mobile}, '%')</if>
+        </if>
+        <if test="email != null and email != ''">
+            AND u.email like
+            <if test="_databaseId == 'oracle'"> '%,'||#{email}||',%'</if>
+            <if test="_databaseId == 'mysql'"> concat('%', #{email}, '%')</if>
+        </if>
+        <if test="compId != null and compId != ''">
+            AND u.comp_id  = #{compId}
+        </if>
+        <if test = "sql_filter !=null and sql_filter!=''">
+            and ${sql_filter}
+        </if>
+        <if test="_databaseId == 'oracle'">group by u.user_id,u.username, u.name,u.password,u.salt,u.email,u.mobile,u.status,u.card_id,u.create_time,u.dept_id,u.comp_id,c.name</if>
+        <if test="_databaseId == 'mysql'">group by u.user_id</if>
+    </select>
+
+    <select id="findList" resultType="com.j2eefast.framework.sys.entity.SysUserEntity">
+        <include refid="sqlpage"/>
+        where u.del_flag = '0'
+        <if test = "username !=null and username!=''">
+            AND u.username like
+            <if test="_databaseId == 'oracle'"> '%,'||#{username}||',%'</if>
+            <if test="_databaseId == 'mysql'"> concat('%', #{username}, '%')</if>
+        </if>
+        <if test = "status !=null and status!=''">
+            AND u.status = #{status}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND u.mobile like
+            <if test="_databaseId == 'oracle'"> '%,'||#{mobile}||',%'</if>
+            <if test="_databaseId == 'mysql'"> concat('%', #{mobile}, '%')</if>
+        </if>
+        <if test="email != null and email != ''">
+            AND u.email like
+            <if test="_databaseId == 'oracle'"> '%,'||#{email}||',%'</if>
+            <if test="_databaseId == 'mysql'"> concat('%', #{email}, '%')</if>
+        </if>
+        <if test="compId != null and compId != ''">
+            AND u.comp_id  = #{compId}
+        </if>
+        <if test = "sql_filter !=null and sql_filter!=''">
+            and ${sql_filter}
+        </if>
+        <if test="_databaseId == 'oracle'">group by u.user_id,u.username, u.name,u.password,u.salt,u.email,u.mobile,u.status,u.card_id,u.create_time,u.dept_id,u.comp_id,c.name</if>
+        <if test="_databaseId == 'mysql'">group by u.user_id</if>
+    </select>
+
+    <select id="findUserByRolePage" resultType="com.j2eefast.framework.sys.entity.SysUserEntity">
+        <include refid="selectRoleToUserVo"/>
+        where
+        u.del_flag = '0' and
+        r.role_id = #{roleId}
+        <if test = "username !=null and username!=''">
+            AND u.username like
+            <if test="_databaseId == 'oracle'"> '%,'||#{username}||',%'</if>
+            <if test="_databaseId == 'mysql'"> concat('%', #{username}, '%')</if>
+        </if>
+        <if test = "status !=null and status!=''">
+            AND u.status = #{status}
+        </if>
+        <if test = "mobile !=null and mobile!=''">
+            AND u.mobile like
+            <if test="_databaseId == 'oracle'"> '%,'||#{mobile}||',%'</if>
+            <if test="_databaseId == 'mysql'"> concat('%', #{mobile}, '%')</if>
+        </if>
+        <if test = "email !=null and email!=''">
+            AND u.email like
+            <if test="_databaseId == 'oracle'"> '%,'||#{email}||',%'</if>
+            <if test="_databaseId == 'mysql'"> concat('%', #{email}, '%')</if>
+        </if>
+        <if test="compId != null and compId != ''">
+            AND u.comp_id  = #{compId}
+        </if>
+        <if test = "sql_filter !=null and sql_filter!=''">
+            and ${sql_filter}
+        </if>
+    </select>
+
+    <select id="findUnallocatedList" resultType="com.j2eefast.framework.sys.entity.SysUserEntity">
+        select distinct u.user_id, u.dept_id, u.username, u.name, u.email, u.avatar, u.mobile, u.status,u.create_time,
+        <if test="_databaseId == 'oracle'">nvl(c.name,'总公司') as comp_name</if>
+        <if test="_databaseId == 'mysql'">ifnull(c.name,"总公司") as comp_name</if>
+        from sys_user u
+        left join sys_dept d on u.dept_id = d.dept_id
+        left join sys_user_role ur on u.user_id = ur.user_id
+        left join sys_role r on r.role_id = ur.role_id
+        left join sys_comp c on u.comp_id = c.comp_id
+        where (r.role_id != #{roleId} or r.role_id IS NULL)
+        and u.user_id not in (select u.user_id from sys_user u inner join sys_user_role ur on u.user_id = ur.user_id and ur.role_id = #{roleId})
+        <if test="username != null and username != ''">
+            AND u.username like
+            <if test="_databaseId == 'oracle'"> '%,'||#{username}||',%'</if>
+            <if test="_databaseId == 'mysql'"> concat('%', #{username}, '%')</if>
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND u.mobile like
+            <if test="_databaseId == 'oracle'"> '%,'||#{mobile}||',%'</if>
+            <if test="_databaseId == 'mysql'"> concat('%', #{mobile}, '%')</if>
+        </if>
+        <if test="email != null and email != ''">
+            AND u.email like concat('%', #{email}, '%')
+        </if>
+        <if test="compId != null and compId != ''">
+            AND u.comp_id  = #{compId}
+        </if>
+        <!-- 数据范围过滤 -->
+        <if test = "sql_filter !=null and sql_filter!=''">
+            and ${sql_filter}
+        </if>
+    </select>
+
+
+    <update id="setStatus">
+        update sys_user set status = #{status} where user_id = #{userId}
+    </update>
+
+    <update id="changePwd">
+        update sys_user
+        <set>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="salt != null and salt != ''">salt = #{salt},</if>
+            <if test="pwdSecurityLevel != null and pwdSecurityLevel != ''">pwd_security_level = #{pwdSecurityLevel},</if>
+            pwd_update_date = sysdate()
+        </set>
+        where user_id = #{userId}
+     </update>
+
+
+    <select id="findUserByUserId" resultType="com.j2eefast.framework.sys.entity.SysUserEntity">
+        select u.user_id as userId,
+        u.username, u.name,u.password,u.salt,u.email,u.mobile,u.status,u.card_id,u.create_time,
+        u.dept_id,u.comp_id,
+        <if test="_databaseId == 'oracle'">nvl(c.name,'总公司') as comp_name</if>
+        <if test="_databaseId == 'mysql'">ifnull(c.name,"总公司") as comp_name</if>
+		from sys_user u
+		left join sys_comp c on u.comp_id = c.comp_id
+        where u.user_id = #{userId} and u.del_flag = '0'
+    </select>
+
+</mapper>

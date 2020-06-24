@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmLoanMapper">
+    
+    <resultMap type="bpmCrmLoanEntity" id="bpmCrmLoanResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="saleUserid"    column="sale_userid"    />
+        <result property="saleOrderNumber"    column="sale_order_number"    />
+        <result property="outCarVin"    column="out_car_vin"    />
+        <result property="outCarVehicle"    column="out_car_vehicle"    />
+        <result property="loanApplyMoney"    column="loan_apply_money"    />
+        <result property="loanApplyMemo"    column="loan_apply_memo"    />
+        <result property="loanSpecialistReview"    column="loan_specialist_review"    />
+        <result property="loanContractFilepath"    column="loan_contract_filepath"    />
+        <result property="loanMoney"    column="loan_money"    />
+        <result property="loanTitleSpecialistProcess"    column="loan_title_specialist_process"    />
+        <result property="loanFilepath"    column="loan_filepath"    />
+        <result property="checkmoneyCashierReview"    column="checkmoney_cashier_review"    />
+        <result property="checkmoneyProofpath"    column="checkmoney_proofpath"    />
+        <result property="checkmoneyLoanamountreceived"    column="checkmoney_loanamountreceived"    />
+        <result property="checkmoneyReceiptnumber"    column="checkmoney_receiptnumber"    />
+        <result property="checkmoneyMemo"    column="checkmoney_memo"    />
+        <result property="orderTakeEffectTime"    column="order_take_effect_time"    />
+        <result property="collectionTime"    column="collection_time"    />
+        <result property="intervalDay"    column="interval_day"    />
+        <result property="interestRate"    column="interest_rate"    />
+        <result property="costOfCapital"    column="cost_of_capital"    />
+        <result property="financeManagerReview"    column="finance_manager_review"    />
+        <result property="managerReview"    column="manager_review"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmLoanVo">
+        select id, process_instance_id, sale_code, create_by, create_time, update_by, update_time, remark, user_id, del_flag, sale_userid, sale_order_number, out_car_vin, out_car_vehicle, loan_apply_money, loan_apply_memo, loan_specialist_review, loan_contract_filepath, loan_money, loan_title_specialist_process, loan_filepath, checkmoney_cashier_review, checkmoney_proofpath, checkmoney_loanamountreceived, checkmoney_receiptnumber, checkmoney_memo, order_take_effect_time, collection_time, interval_day, interest_rate, cost_of_capital, finance_manager_review, manager_review from bpm_crm_loan
+    </sql>
+
+
+<!--
+    <update id="updatebpmCrmLoan" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmLoanEntity">
+        update bpm_crm_loan
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+        <if test="saleUserid != null ">sale_userid = #{saleUserid},</if>
+        <if test="saleOrderNumber != null  and saleOrderNumber != ''">sale_order_number = #{saleOrderNumber},</if>
+        <if test="outCarVin != null  and outCarVin != ''">out_car_vin = #{outCarVin},</if>
+        <if test="outCarVehicle != null  and outCarVehicle != ''">out_car_vehicle = #{outCarVehicle},</if>
+        <if test="loanApplyMoney != null ">loan_apply_money = #{loanApplyMoney},</if>
+        <if test="loanApplyMemo != null  and loanApplyMemo != ''">loan_apply_memo = #{loanApplyMemo},</if>
+        <if test="loanSpecialistReview != null ">loan_specialist_review = #{loanSpecialistReview},</if>
+        <if test="loanContractFilepath != null  and loanContractFilepath != ''">loan_contract_filepath = #{loanContractFilepath},</if>
+        <if test="loanMoney != null ">loan_money = #{loanMoney},</if>
+        <if test="loanTitleSpecialistProcess != null ">loan_title_specialist_process = #{loanTitleSpecialistProcess},</if>
+        <if test="loanFilepath != null  and loanFilepath != ''">loan_filepath = #{loanFilepath},</if>
+        <if test="checkmoneyCashierReview != null ">checkmoney_cashier_review = #{checkmoneyCashierReview},</if>
+        <if test="checkmoneyProofpath != null  and checkmoneyProofpath != ''">checkmoney_proofpath = #{checkmoneyProofpath},</if>
+        <if test="checkmoneyLoanamountreceived != null ">checkmoney_loanamountreceived = #{checkmoneyLoanamountreceived},</if>
+        <if test="checkmoneyReceiptnumber != null  and checkmoneyReceiptnumber != ''">checkmoney_receiptnumber = #{checkmoneyReceiptnumber},</if>
+        <if test="checkmoneyMemo != null  and checkmoneyMemo != ''">checkmoney_memo = #{checkmoneyMemo},</if>
+        <if test="orderTakeEffectTime != null ">order_take_effect_time = #{orderTakeEffectTime},</if>
+        <if test="collectionTime != null ">collection_time = #{collectionTime},</if>
+        <if test="intervalDay != null ">interval_day = #{intervalDay},</if>
+        <if test="interestRate != null ">interest_rate = #{interestRate},</if>
+        <if test="costOfCapital != null ">cost_of_capital = #{costOfCapital},</if>
+        <if test="financeManagerReview != null ">finance_manager_review = #{financeManagerReview},</if>
+        <if test="managerReview != null  and managerReview != ''">manager_review = #{managerReview},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmLoanById" parameterType="String">
+        delete from bpm_crm_loan where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_loan where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

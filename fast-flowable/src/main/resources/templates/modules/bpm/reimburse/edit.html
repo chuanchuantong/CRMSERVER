@@ -1,0 +1,145 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="修改报销">
+</@header>
+<@addorEdit fromId="form-reimburse-edit">
+    <input name="id" value="${bpmCrmReimburse.id}" type="hidden">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售员">：                               <i class="fa fa-question-circle-o" title="销售员"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleUserid" value="${bpmCrmReimburse.saleUserid?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售订单编号">：                               <i class="fa fa-question-circle-o" title="销售订单编号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleOrderNumber" value="${bpmCrmReimburse.saleOrderNumber?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆识别号">：                               <i class="fa fa-question-circle-o" title="车辆识别号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVin" value="${bpmCrmReimburse.outCarVin?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车型">：                               <i class="fa fa-question-circle-o" title="车型"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVehicle" value="${bpmCrmReimburse.outCarVehicle?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "费用发生日期"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="reimburseTime"  data-type="date"   value="${(bpmCrmReimburse.reimburseTime?string('yyyy-MM-dd'))!}" data-format="yyyy-MM-dd" type="text"  required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "报销金额">：                               <i class="fa fa-question-circle-o" title="报销信息-报销金额"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="reimburseAmount" value="${bpmCrmReimburse.reimburseAmount?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "凭证">：                               <i class="fa fa-question-circle-o" title="报销信息-凭证"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="reimburseAttaFilepath" value="${bpmCrmReimburse.reimburseAttaFilepath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审批金额">：                               <i class="fa fa-question-circle-o" title="出纳审批-审批金额"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="cashierAmount" value="${bpmCrmReimburse.cashierAmount?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "出纳审批"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="cashierApproval" name="cashierApproval" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmReimburse.cashierApproval?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="cashierRemark" class="form-control" required>${bpmCrmReimburse.cashierRemark?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "报销比例">：                               <i class="fa fa-question-circle-o" title="财务经理审批-报销比例"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="financeProportion" value="${bpmCrmReimburse.financeProportion?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "报销金额">：                               <i class="fa fa-question-circle-o" title="财务经理审批-报销金额"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="financeAmount" value="${bpmCrmReimburse.financeAmount?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "财务经理审批"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="financeApproval" name="financeApproval" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmReimburse.financeApproval?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="financeRemark" class="form-control" required>${bpmCrmReimburse.financeRemark?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "会计审批"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="accountingApproval" name="accountingApproval" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmReimburse.accountingApproval?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "会计备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="accountingRemark" class="form-control" required>${bpmCrmReimburse.accountingRemark?default("")}</textarea>
+        </div>
+    </div>
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    var prefix = baseURL + "bpm/reimburse";
+    $("#form-reimburse-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/edit", $('#form-reimburse-edit').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

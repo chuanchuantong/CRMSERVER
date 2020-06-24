@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmTemptagMapper">
+    
+    <resultMap type="bpmCrmTemptagEntity" id="bpmCrmTemptagResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="saleUserid"    column="sale_userid"    />
+        <result property="saleOrderNumber"    column="sale_order_number"    />
+        <result property="outCarVin"    column="out_car_vin"    />
+        <result property="outCarVehicle"    column="out_car_vehicle"    />
+        <result property="orderRegistrantName"    column="order_registrant_name"    />
+        <result property="orderRegistrantAddress"    column="order_registrant_address"    />
+        <result property="orderRegistrantPhone"    column="order_registrant_phone"    />
+        <result property="orderIsNeedMail"    column="order_is_need_mail"    />
+        <result property="orderRecipientisregistrant"    column="order_recipientisregistrant"    />
+        <result property="orderRecipientName"    column="order_recipient_name"    />
+        <result property="orderRecipientAddress"    column="order_recipient_address"    />
+        <result property="orderRecipientPhone"    column="order_recipient_phone"    />
+        <result property="orderRecipientMailMemo"    column="order_recipient_mail_memo"    />
+        <result property="selectTempTagNumber"    column="select_temp_tag_number"    />
+        <result property="shippingInfo"    column="shipping_info"    />
+        <result property="shippingFee"    column="shipping_fee"    />
+        <result property="tempTagFee"    column="temp_tag_fee"    />
+        <result property="totalFee"    column="total_fee"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmTemptagVo">
+        select id, process_instance_id, sale_code, create_by, create_time, update_by, update_time, remark, user_id, del_flag, sale_userid, sale_order_number, out_car_vin, out_car_vehicle, order_registrant_name, order_registrant_address, order_registrant_phone, order_is_need_mail, order_recipientisregistrant, order_recipient_name, order_recipient_address, order_recipient_phone, order_recipient_mail_memo, select_temp_tag_number, shipping_info, shipping_fee, temp_tag_fee, total_fee from bpm_crm_temptag
+    </sql>
+
+
+<!--
+    <update id="updatebpmCrmTemptag" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmTemptagEntity">
+        update bpm_crm_temptag
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+        <if test="saleUserid != null ">sale_userid = #{saleUserid},</if>
+        <if test="saleOrderNumber != null  and saleOrderNumber != ''">sale_order_number = #{saleOrderNumber},</if>
+        <if test="outCarVin != null  and outCarVin != ''">out_car_vin = #{outCarVin},</if>
+        <if test="outCarVehicle != null  and outCarVehicle != ''">out_car_vehicle = #{outCarVehicle},</if>
+        <if test="orderRegistrantName != null  and orderRegistrantName != ''">order_registrant_name = #{orderRegistrantName},</if>
+        <if test="orderRegistrantAddress != null  and orderRegistrantAddress != ''">order_registrant_address = #{orderRegistrantAddress},</if>
+        <if test="orderRegistrantPhone != null  and orderRegistrantPhone != ''">order_registrant_phone = #{orderRegistrantPhone},</if>
+        <if test="orderIsNeedMail != null ">order_is_need_mail = #{orderIsNeedMail},</if>
+        <if test="orderRecipientisregistrant != null ">order_recipientisregistrant = #{orderRecipientisregistrant},</if>
+        <if test="orderRecipientName != null  and orderRecipientName != ''">order_recipient_name = #{orderRecipientName},</if>
+        <if test="orderRecipientAddress != null  and orderRecipientAddress != ''">order_recipient_address = #{orderRecipientAddress},</if>
+        <if test="orderRecipientPhone != null  and orderRecipientPhone != ''">order_recipient_phone = #{orderRecipientPhone},</if>
+        <if test="orderRecipientMailMemo != null  and orderRecipientMailMemo != ''">order_recipient_mail_memo = #{orderRecipientMailMemo},</if>
+        <if test="selectTempTagNumber != null  and selectTempTagNumber != ''">select_temp_tag_number = #{selectTempTagNumber},</if>
+        <if test="shippingInfo != null  and shippingInfo != ''">shipping_info = #{shippingInfo},</if>
+        <if test="shippingFee != null ">shipping_fee = #{shippingFee},</if>
+        <if test="tempTagFee != null ">temp_tag_fee = #{tempTagFee},</if>
+        <if test="totalFee != null ">total_fee = #{totalFee},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmTemptagById" parameterType="String">
+        delete from bpm_crm_temptag where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_temptag where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

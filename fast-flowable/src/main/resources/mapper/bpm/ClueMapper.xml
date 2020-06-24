@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.ClueMapper">
+    
+    <resultMap type="ClueEntity" id="ClueResult">
+        <result property="Id"    column="Id"    />
+        <result property="ShortHand"    column="ShortHand"    />
+        <result property="Source"    column="Source"    />
+        <result property="CustomerName"    column="CustomerName"    />
+        <result property="CustomerAddress"    column="CustomerAddress"    />
+        <result property="ContactInfo"    column="ContactInfo"    />
+        <result property="Industry"    column="Industry"    />
+        <result property="IntentionCar"    column="IntentionCar"    />
+        <result property="Needs"    column="Needs"    />
+        <result property="Budget"    column="Budget"    />
+        <result property="IsHoldCash"    column="IsHoldCash"    />
+        <result property="ExitsCar"    column="ExitsCar"    />
+        <result property="PlanTime"    column="PlanTime"    />
+        <result property="CStatus"    column="CStatus"    />
+        <result property="Royalty"    column="Royalty"    />
+        <result property="OAId"    column="OAId"    />
+        <result property="Level"    column="Level"    />
+        <result property="CuStyles"    column="CuStyles"    />
+        <result property="CreateTime"    column="CreateTime"    />
+        <result property="CreateId"    column="CreateId"    />
+        <result property="UpdateTime"    column="UpdateTime"    />
+        <result property="UpdateId"    column="UpdateId"    />
+        <result property="FCode"    column="FCode"    />
+        <result property="UserId"    column="UserId"    />
+        <result property="Remarks"    column="Remarks"    />
+        <result property="Trusts"    column="Trusts"    />
+    </resultMap>
+
+    <sql id="selectClueVo">
+        select Id, ShortHand, Source, CustomerName, CustomerAddress, ContactInfo, Industry, IntentionCar, Needs, Budget, IsHoldCash, ExitsCar, PlanTime, CStatus, Royalty, OAId, Level, CuStyles, CreateTime, CreateId, UpdateTime, UpdateId, FCode, UserId, Remarks, Trusts from Clue
+    </sql>
+
+
+<!--
+    <update id="updateClue" parameterType="com.j2eefast.flowable.bpm.entity.ClueEntity">
+        update Clue
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="ShortHand != null  and ShortHand != ''">ShortHand = #{ShortHand},</if>
+        <if test="Source != null  and Source != ''">Source = #{Source},</if>
+        <if test="CustomerName != null  and CustomerName != ''">CustomerName = #{CustomerName},</if>
+        <if test="CustomerAddress != null  and CustomerAddress != ''">CustomerAddress = #{CustomerAddress},</if>
+        <if test="ContactInfo != null  and ContactInfo != ''">ContactInfo = #{ContactInfo},</if>
+        <if test="Industry != null  and Industry != ''">Industry = #{Industry},</if>
+        <if test="IntentionCar != null  and IntentionCar != ''">IntentionCar = #{IntentionCar},</if>
+        <if test="Needs != null  and Needs != ''">Needs = #{Needs},</if>
+        <if test="Budget != null  and Budget != ''">Budget = #{Budget},</if>
+        <if test="IsHoldCash != null  and IsHoldCash != ''">IsHoldCash = #{IsHoldCash},</if>
+        <if test="ExitsCar != null  and ExitsCar != ''">ExitsCar = #{ExitsCar},</if>
+        <if test="PlanTime != null  and PlanTime != ''">PlanTime = #{PlanTime},</if>
+        <if test="CStatus != null ">CStatus = #{CStatus},</if>
+        <if test="Royalty != null ">Royalty = #{Royalty},</if>
+        <if test="OAId != null ">OAId = #{OAId},</if>
+        <if test="Level != null  and Level != ''">Level = #{Level},</if>
+        <if test="CuStyles != null  and CuStyles != ''">CuStyles = #{CuStyles},</if>
+        <if test="CreateTime != null ">CreateTime = #{CreateTime},</if>
+        <if test="CreateId != null ">CreateId = #{CreateId},</if>
+        <if test="UpdateTime != null ">UpdateTime = #{UpdateTime},</if>
+        <if test="UpdateId != null ">UpdateId = #{UpdateId},</if>
+        <if test="FCode != null  and FCode != ''">FCode = #{FCode},</if>
+        <if test="UserId != null ">UserId = #{UserId},</if>
+        <if test="Remarks != null  and Remarks != ''">Remarks = #{Remarks},</if>
+        <if test="Trusts != null  and Trusts != ''">Trusts = #{Trusts},</if>
+            update_time = sysdate()
+        </trim>
+        where Id = #{Id}
+    </update>
+
+    <delete id="deleteClueById" parameterType="Long">
+        delete from Clue where Id = #{Id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="Long">
+        delete from Clue where Id in
+        <foreach item="Id" collection="array" open="(" separator="," close=")">
+            #{Id}
+        </foreach>
+    </delete>
+-->
+</mapper>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmEndorderMapper">
+    
+    <resultMap type="bpmCrmEndorderEntity" id="bpmCrmEndorderResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="saleUserid"    column="sale_userid"    />
+        <result property="outCarVin"    column="out_car_vin"    />
+        <result property="outCarVehicle"    column="out_car_vehicle"    />
+        <result property="orderEndType"    column="order_end_type"    />
+        <result property="orderMemo"    column="order_memo"    />
+        <result property="creditRealitySum"    column="credit_reality_sum"    />
+        <result property="creditBillFilepath"    column="credit_bill_filepath"    />
+        <result property="costType"    column="cost_type"    />
+        <result property="costAmount"    column="cost_amount"    />
+        <result property="costAllBusinessFilepath"    column="cost_all_business_filepath"    />
+        <result property="commissionRealitySum"    column="commission_reality_sum"    />
+        <result property="commissionCurrentCost"    column="commission_current_cost"    />
+        <result property="commissionFinalProfit"    column="commission_final_profit"    />
+        <result property="commissionFinalAchievement"    column="commission_final_achievement"    />
+        <result property="commissionPercentage"    column="commission_percentage"    />
+        <result property="commissionFinalCommission"    column="commission_final_commission"    />
+        <result property="approvalSalesDirector"    column="approval_sales_director"    />
+        <result property="approvalSalesDirectorMemo"    column="approval_sales_director_memo"    />
+        <result property="approvalReconditioning"    column="approval_reconditioning"    />
+        <result property="approvalReconditioningMemo"    column="approval_reconditioning_memo"    />
+        <result property="approvalMaintenanceCenter"    column="approval_maintenance_center"    />
+        <result property="approvalMaintenanceCenterMemo"    column="approval_maintenance_center_memo"    />
+        <result property="approvalTransport"    column="approval_transport"    />
+        <result property="approvalTransportMemo"    column="approval_transport_memo"    />
+        <result property="approvalCashier"    column="approval_cashier"    />
+        <result property="approvalCashierMemo"    column="approval_cashier_memo"    />
+        <result property="approvalInventory"    column="approval_inventory"    />
+        <result property="approvalInventoryMemo"    column="approval_inventory_memo"    />
+        <result property="approvalTax"    column="approval_tax"    />
+        <result property="approvalTaxMemo"    column="approval_tax_memo"    />
+        <result property="approvalAccounting"    column="approval_accounting"    />
+        <result property="approvalAccountingMemo"    column="approval_accounting_memo"    />
+        <result property="approvalSalesDirectorReview"    column="approval_sales_director_review"    />
+        <result property="approvalSalesDirectorReviewMemo"    column="approval_sales_director_review_memo"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmEndorderVo">
+        select id, process_instance_id, sale_code, create_by, create_time, update_by, update_time, remark, user_id, del_flag, sale_userid, out_car_vin, out_car_vehicle, order_end_type, order_memo, credit_reality_sum, credit_bill_filepath, cost_type, cost_amount, cost_all_business_filepath, commission_reality_sum, commission_current_cost, commission_final_profit, commission_final_achievement, commission_percentage, commission_final_commission, approval_sales_director, approval_sales_director_memo, approval_reconditioning, approval_reconditioning_memo, approval_maintenance_center, approval_maintenance_center_memo, approval_transport, approval_transport_memo, approval_cashier, approval_cashier_memo, approval_inventory, approval_inventory_memo, approval_tax, approval_tax_memo, approval_accounting, approval_accounting_memo, approval_sales_director_review, approval_sales_director_review_memo from bpm_crm_endorder
+    </sql>
+
+
+<!--
+    <update id="updatebpmCrmEndorder" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmEndorderEntity">
+        update bpm_crm_endorder
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+        <if test="saleUserid != null ">sale_userid = #{saleUserid},</if>
+        <if test="outCarVin != null  and outCarVin != ''">out_car_vin = #{outCarVin},</if>
+        <if test="outCarVehicle != null  and outCarVehicle != ''">out_car_vehicle = #{outCarVehicle},</if>
+        <if test="orderEndType != null ">order_end_type = #{orderEndType},</if>
+        <if test="orderMemo != null  and orderMemo != ''">order_memo = #{orderMemo},</if>
+        <if test="creditRealitySum != null ">credit_reality_sum = #{creditRealitySum},</if>
+        <if test="creditBillFilepath != null  and creditBillFilepath != ''">credit_bill_filepath = #{creditBillFilepath},</if>
+        <if test="costType != null  and costType != ''">cost_type = #{costType},</if>
+        <if test="costAmount != null ">cost_amount = #{costAmount},</if>
+        <if test="costAllBusinessFilepath != null  and costAllBusinessFilepath != ''">cost_all_business_filepath = #{costAllBusinessFilepath},</if>
+        <if test="commissionRealitySum != null ">commission_reality_sum = #{commissionRealitySum},</if>
+        <if test="commissionCurrentCost != null ">commission_current_cost = #{commissionCurrentCost},</if>
+        <if test="commissionFinalProfit != null ">commission_final_profit = #{commissionFinalProfit},</if>
+        <if test="commissionFinalAchievement != null ">commission_final_achievement = #{commissionFinalAchievement},</if>
+        <if test="commissionPercentage != null ">commission_percentage = #{commissionPercentage},</if>
+        <if test="commissionFinalCommission != null ">commission_final_commission = #{commissionFinalCommission},</if>
+        <if test="approvalSalesDirector != null ">approval_sales_director = #{approvalSalesDirector},</if>
+        <if test="approvalSalesDirectorMemo != null  and approvalSalesDirectorMemo != ''">approval_sales_director_memo = #{approvalSalesDirectorMemo},</if>
+        <if test="approvalReconditioning != null ">approval_reconditioning = #{approvalReconditioning},</if>
+        <if test="approvalReconditioningMemo != null  and approvalReconditioningMemo != ''">approval_reconditioning_memo = #{approvalReconditioningMemo},</if>
+        <if test="approvalMaintenanceCenter != null ">approval_maintenance_center = #{approvalMaintenanceCenter},</if>
+        <if test="approvalMaintenanceCenterMemo != null  and approvalMaintenanceCenterMemo != ''">approval_maintenance_center_memo = #{approvalMaintenanceCenterMemo},</if>
+        <if test="approvalTransport != null ">approval_transport = #{approvalTransport},</if>
+        <if test="approvalTransportMemo != null  and approvalTransportMemo != ''">approval_transport_memo = #{approvalTransportMemo},</if>
+        <if test="approvalCashier != null ">approval_cashier = #{approvalCashier},</if>
+        <if test="approvalCashierMemo != null  and approvalCashierMemo != ''">approval_cashier_memo = #{approvalCashierMemo},</if>
+        <if test="approvalInventory != null ">approval_inventory = #{approvalInventory},</if>
+        <if test="approvalInventoryMemo != null  and approvalInventoryMemo != ''">approval_inventory_memo = #{approvalInventoryMemo},</if>
+        <if test="approvalTax != null ">approval_tax = #{approvalTax},</if>
+        <if test="approvalTaxMemo != null  and approvalTaxMemo != ''">approval_tax_memo = #{approvalTaxMemo},</if>
+        <if test="approvalAccounting != null ">approval_accounting = #{approvalAccounting},</if>
+        <if test="approvalAccountingMemo != null  and approvalAccountingMemo != ''">approval_accounting_memo = #{approvalAccountingMemo},</if>
+        <if test="approvalSalesDirectorReview != null ">approval_sales_director_review = #{approvalSalesDirectorReview},</if>
+        <if test="approvalSalesDirectorReviewMemo != null  and approvalSalesDirectorReviewMemo != ''">approval_sales_director_review_memo = #{approvalSalesDirectorReviewMemo},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmEndorderById" parameterType="String">
+        delete from bpm_crm_endorder where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_endorder where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

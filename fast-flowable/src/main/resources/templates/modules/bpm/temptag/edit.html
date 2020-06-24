@@ -1,0 +1,146 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="修改临牌">
+</@header>
+<@addorEdit fromId="form-temptag-edit">
+    <input name="id" value="${bpmCrmTemptag.id}" type="hidden">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售员" />：                               <i class="fa fa-question-circle-o" title="销售员"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleUserid" value="${bpmCrmTemptag.saleUserid?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售订单编号" />：                               <i class="fa fa-question-circle-o" title="销售订单编号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleOrderNumber" value="${bpmCrmTemptag.saleOrderNumber?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆识别号" />：                               <i class="fa fa-question-circle-o" title="车辆识别号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVin" value="${bpmCrmTemptag.outCarVin?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车型" />：                               <i class="fa fa-question-circle-o" title="车型"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVehicle" value="${bpmCrmTemptag.outCarVehicle?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "注册人姓名" />：                               <i class="fa fa-question-circle-o" title="注册人姓名"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="orderRegistrantName" value="${bpmCrmTemptag.orderRegistrantName?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "注册人地址" />：                               <i class="fa fa-question-circle-o" title="注册人地址"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="orderRegistrantAddress" value="${bpmCrmTemptag.orderRegistrantAddress?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "注册人手机" />：                               <i class="fa fa-question-circle-o" title="注册人手机"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="orderRegistrantPhone" value="${bpmCrmTemptag.orderRegistrantPhone?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "是否需要邮件"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="orderIsNeedMail" name="orderIsNeedMail" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmTemptag.orderIsNeedMail?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收件人是否同注册人"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="orderRecipientisregistrant" name="orderRecipientisregistrant" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmTemptag.orderRecipientisregistrant?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "收件人姓名" />：                
+       </label>
+        <div class="col-sm-8"><input name="orderRecipientName" value="${bpmCrmTemptag.orderRecipientName?default("")}" class="form-control" type="text" >                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "收件人地址" />：                
+       </label>
+        <div class="col-sm-8"><input name="orderRecipientAddress" value="${bpmCrmTemptag.orderRecipientAddress?default("")}" class="form-control" type="text" >                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "收件人手机" />：                
+       </label>
+        <div class="col-sm-8"><input name="orderRecipientPhone" value="${bpmCrmTemptag.orderRecipientPhone?default("")}" class="form-control" type="text" >                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "邮件备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="orderRecipientMailMemo" class="form-control">${bpmCrmTemptag.orderRecipientMailMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "选择临时号牌" />：                               <i class="fa fa-question-circle-o" title="从临牌库存里选择  （过滤条件-库存状态=已入库）"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="selectTempTagNumber" value="${bpmCrmTemptag.selectTempTagNumber?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "发货信息" />：                               <i class="fa fa-question-circle-o" title="发货信息"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="shippingInfo" value="${bpmCrmTemptag.shippingInfo?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "运费" />：                               <i class="fa fa-question-circle-o" title="运费"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="shippingFee" value="${bpmCrmTemptag.shippingFee?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "临牌费" />：                               <i class="fa fa-question-circle-o" title="临牌费  （默认值=15）"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="tempTagFee" value="${bpmCrmTemptag.tempTagFee?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "总费用" />：                               <i class="fa fa-question-circle-o" title="总费用    公式：SUM(Temp tag fee,Shipping fee)"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="totalFee" value="${bpmCrmTemptag.totalFee?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    var prefix = baseURL + "bpm/temptag";
+    $("#form-temptag-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/edit", $('#form-temptag-edit').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

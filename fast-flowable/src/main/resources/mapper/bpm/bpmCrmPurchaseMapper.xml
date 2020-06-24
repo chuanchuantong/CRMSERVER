@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmPurchaseMapper">
+    
+    <resultMap type="bpmCrmPurchaseEntity" id="bpmCrmPurchaseResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="saleUserid"    column="sale_userid"    />
+        <result property="saleOrderNumber"    column="sale_order_number"    />
+        <result property="orderContractPrice"    column="order_contract_price"    />
+        <result property="orderIsTax"    column="order_is_tax"    />
+        <result property="orderIsTransport"    column="order_is_transport"    />
+        <result property="orderIsGuarantee"    column="order_is_guarantee"    />
+        <result property="orderOtherItem"    column="order_other_item"    />
+        <result property="carVin"    column="car_vin"    />
+        <result property="carVehicle"    column="car_vehicle"    />
+        <result property="carMileage"    column="car_mileage"    />
+        <result property="carTranmission"    column="car_tranmission"    />
+        <result property="carDrivertrain"    column="car_drivertrain"    />
+        <result property="carStatus"    column="car_status"    />
+        <result property="channelHighestPrice"    column="channel_highest_price"    />
+        <result property="channelPurchaseSource"    column="channel_purchase_source"    />
+        <result property="channelIsOpenSale"    column="channel_is_open_sale"    />
+        <result property="channelAuction"    column="channel_auction"    />
+        <result property="channelAuctionType"    column="channel_auction_type"    />
+        <result property="channelAuctionTimeType"    column="channel_auction_time_type"    />
+        <result property="channelAuctionTime"    column="channel_auction_time"    />
+        <result property="channelSellerName"    column="channel_seller_name"    />
+        <result property="channelSellerContactinfo"    column="channel_seller_contactinfo"    />
+        <result property="channelPurchaseMemo"    column="channel_purchase_memo"    />
+        <result property="managerPurchaseSpecialist"    column="manager_purchase_specialist"    />
+        <result property="managerReview"    column="manager_review"    />
+        <result property="managerReviewMemo"    column="manager_review_memo"    />
+        <result property="managerIsPurchase"    column="manager_is_purchase"    />
+        <result property="purchaseResult"    column="purchase_result"    />
+        <result property="purchaseResultTime"    column="purchase_result_time"    />
+        <result property="purchaseResultMemo"    column="purchase_result_memo"    />
+        <result property="isWarehousing"    column="is_warehousing"    />
+        <result property="cashierPaySentTime"    column="cashier_pay_sent_time"    />
+        <result property="cashierPayMethod"    column="cashier_pay_method"    />
+        <result property="cashierProofFilepath"    column="cashier_proof_filepath"    />
+        <result property="cashierReceiptNumber"    column="cashier_receipt_number"    />
+        <result property="cashierMemo"    column="cashier_memo"    />
+        <result property="confirmPayMethod"    column="confirm_pay_method"    />
+        <result property="confirmPayAmount"    column="confirm_pay_amount"    />
+        <result property="confirmMemo"    column="confirm_memo"    />
+        <result property="purchasePaySum"    column="purchase_pay_sum"    />
+        <result property="purchaseRemark"    column="purchase_remark"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmPurchaseVo">
+        select id, process_instance_id, sale_code, create_by, create_time, update_by, update_time, remark, user_id, del_flag, sale_userid, sale_order_number, order_contract_price, order_is_tax, order_is_transport, order_is_guarantee, order_other_item, car_vin, car_vehicle, car_mileage, car_tranmission, car_drivertrain, car_status, channel_highest_price, channel_purchase_source, channel_is_open_sale, channel_auction, channel_auction_type, channel_auction_time_type, channel_auction_time, channel_seller_name, channel_seller_contactinfo, channel_purchase_memo, manager_purchase_specialist, manager_review, manager_review_memo, manager_is_purchase, purchase_result, purchase_result_time, purchase_result_memo, is_warehousing, cashier_pay_sent_time, cashier_pay_method, cashier_proof_filepath, cashier_receipt_number, cashier_memo, confirm_pay_method, confirm_pay_amount, confirm_memo, purchase_pay_sum, purchase_remark from bpm_crm_purchase
+    </sql>
+
+
+<!--
+    <update id="updatebpmCrmPurchase" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmPurchaseEntity">
+        update bpm_crm_purchase
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+        <if test="saleUserid != null ">sale_userid = #{saleUserid},</if>
+        <if test="saleOrderNumber != null  and saleOrderNumber != ''">sale_order_number = #{saleOrderNumber},</if>
+        <if test="orderContractPrice != null ">order_contract_price = #{orderContractPrice},</if>
+        <if test="orderIsTax != null ">order_is_tax = #{orderIsTax},</if>
+        <if test="orderIsTransport != null ">order_is_transport = #{orderIsTransport},</if>
+        <if test="orderIsGuarantee != null ">order_is_guarantee = #{orderIsGuarantee},</if>
+        <if test="orderOtherItem != null  and orderOtherItem != ''">order_other_item = #{orderOtherItem},</if>
+        <if test="carVin != null  and carVin != ''">car_vin = #{carVin},</if>
+        <if test="carVehicle != null  and carVehicle != ''">car_vehicle = #{carVehicle},</if>
+        <if test="carMileage != null ">car_mileage = #{carMileage},</if>
+        <if test="carTranmission != null ">car_tranmission = #{carTranmission},</if>
+        <if test="carDrivertrain != null ">car_drivertrain = #{carDrivertrain},</if>
+        <if test="carStatus != null ">car_status = #{carStatus},</if>
+        <if test="channelHighestPrice != null ">channel_highest_price = #{channelHighestPrice},</if>
+        <if test="channelPurchaseSource != null ">channel_purchase_source = #{channelPurchaseSource},</if>
+        <if test="channelIsOpenSale != null ">channel_is_open_sale = #{channelIsOpenSale},</if>
+        <if test="channelAuction != null ">channel_auction = #{channelAuction},</if>
+        <if test="channelAuctionType != null ">channel_auction_type = #{channelAuctionType},</if>
+        <if test="channelAuctionTimeType != null  and channelAuctionTimeType != ''">channel_auction_time_type = #{channelAuctionTimeType},</if>
+        <if test="channelAuctionTime != null ">channel_auction_time = #{channelAuctionTime},</if>
+        <if test="channelSellerName != null  and channelSellerName != ''">channel_seller_name = #{channelSellerName},</if>
+        <if test="channelSellerContactinfo != null  and channelSellerContactinfo != ''">channel_seller_contactinfo = #{channelSellerContactinfo},</if>
+        <if test="channelPurchaseMemo != null  and channelPurchaseMemo != ''">channel_purchase_memo = #{channelPurchaseMemo},</if>
+        <if test="managerPurchaseSpecialist != null  and managerPurchaseSpecialist != ''">manager_purchase_specialist = #{managerPurchaseSpecialist},</if>
+        <if test="managerReview != null  and managerReview != ''">manager_review = #{managerReview},</if>
+        <if test="managerReviewMemo != null  and managerReviewMemo != ''">manager_review_memo = #{managerReviewMemo},</if>
+        <if test="managerIsPurchase != null ">manager_is_purchase = #{managerIsPurchase},</if>
+        <if test="purchaseResult != null ">purchase_result = #{purchaseResult},</if>
+        <if test="purchaseResultTime != null ">purchase_result_time = #{purchaseResultTime},</if>
+        <if test="purchaseResultMemo != null  and purchaseResultMemo != ''">purchase_result_memo = #{purchaseResultMemo},</if>
+        <if test="isWarehousing != null ">is_warehousing = #{isWarehousing},</if>
+        <if test="cashierPaySentTime != null ">cashier_pay_sent_time = #{cashierPaySentTime},</if>
+        <if test="cashierPayMethod != null ">cashier_pay_method = #{cashierPayMethod},</if>
+        <if test="cashierProofFilepath != null  and cashierProofFilepath != ''">cashier_proof_filepath = #{cashierProofFilepath},</if>
+        <if test="cashierReceiptNumber != null  and cashierReceiptNumber != ''">cashier_receipt_number = #{cashierReceiptNumber},</if>
+        <if test="cashierMemo != null  and cashierMemo != ''">cashier_memo = #{cashierMemo},</if>
+        <if test="confirmPayMethod != null ">confirm_pay_method = #{confirmPayMethod},</if>
+        <if test="confirmPayAmount != null ">confirm_pay_amount = #{confirmPayAmount},</if>
+        <if test="confirmMemo != null  and confirmMemo != ''">confirm_memo = #{confirmMemo},</if>
+        <if test="purchasePaySum != null ">purchase_pay_sum = #{purchasePaySum},</if>
+        <if test="purchaseRemark != null  and purchaseRemark != ''">purchase_remark = #{purchaseRemark},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmPurchaseById" parameterType="String">
+        delete from bpm_crm_purchase where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_purchase where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmMaintenanceMapper">
+    
+    <resultMap type="bpmCrmMaintenanceEntity" id="bpmCrmMaintenanceResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="saleUserid"    column="sale_userid"    />
+        <result property="saleOrderNumber"    column="sale_order_number"    />
+        <result property="outCarVin"    column="out_car_vin"    />
+        <result property="outCarVehicle"    column="out_car_vehicle"    />
+        <result property="orderCarContacts"    column="order_car_contacts"    />
+        <result property="orderCarPlanInTime"    column="order_car_plan_in_time"    />
+        <result property="orderCarLastDeliveryTime"    column="order_car_last_delivery_time"    />
+        <result property="orderCarPosition"    column="order_car_position"    />
+        <result property="orderCarRemark"    column="order_car_remark"    />
+        <result property="orderCarLossFilepath"    column="order_car_loss_filepath"    />
+        <result property="commissionerPlanGiveTime"    column="commissioner_plan_give_time"    />
+        <result property="commissionerRepairMethod"    column="commissioner_repair_method"    />
+        <result property="commissionerOffer"    column="commissioner_offer"    />
+        <result property="commissionerOfferFilepath"    column="commissioner_offer_filepath"    />
+        <result property="maintenanceCheckFilepath"    column="maintenance_check_filepath"    />
+        <result property="maintenanceStatus"    column="maintenance_status"    />
+        <result property="maintenanceSettlementFilepath"    column="maintenance_settlement_filepath"    />
+        <result property="maintenanceTotalPrice"    column="maintenance_total_price"    />
+        <result property="maintenanceSettlementMemo"    column="maintenance_settlement_memo"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmMaintenanceVo">
+        select id, process_instance_id, sale_code, create_by, create_time, update_by, update_time, remark, user_id, del_flag, sale_userid, sale_order_number, out_car_vin, out_car_vehicle, order_car_contacts, order_car_plan_in_time, order_car_last_delivery_time, order_car_position, order_car_remark, order_car_loss_filepath, commissioner_plan_give_time, commissioner_repair_method, commissioner_offer, commissioner_offer_filepath, maintenance_check_filepath, maintenance_status, maintenance_settlement_filepath, maintenance_total_price, maintenance_settlement_memo from bpm_crm_maintenance
+    </sql>
+
+
+<!--
+    <update id="updatebpmCrmMaintenance" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmMaintenanceEntity">
+        update bpm_crm_maintenance
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+        <if test="saleUserid != null ">sale_userid = #{saleUserid},</if>
+        <if test="saleOrderNumber != null  and saleOrderNumber != ''">sale_order_number = #{saleOrderNumber},</if>
+        <if test="outCarVin != null  and outCarVin != ''">out_car_vin = #{outCarVin},</if>
+        <if test="outCarVehicle != null  and outCarVehicle != ''">out_car_vehicle = #{outCarVehicle},</if>
+        <if test="orderCarContacts != null  and orderCarContacts != ''">order_car_contacts = #{orderCarContacts},</if>
+        <if test="orderCarPlanInTime != null ">order_car_plan_in_time = #{orderCarPlanInTime},</if>
+        <if test="orderCarLastDeliveryTime != null ">order_car_last_delivery_time = #{orderCarLastDeliveryTime},</if>
+        <if test="orderCarPosition != null  and orderCarPosition != ''">order_car_position = #{orderCarPosition},</if>
+        <if test="orderCarRemark != null  and orderCarRemark != ''">order_car_remark = #{orderCarRemark},</if>
+        <if test="orderCarLossFilepath != null  and orderCarLossFilepath != ''">order_car_loss_filepath = #{orderCarLossFilepath},</if>
+        <if test="commissionerPlanGiveTime != null ">commissioner_plan_give_time = #{commissionerPlanGiveTime},</if>
+        <if test="commissionerRepairMethod != null  and commissionerRepairMethod != ''">commissioner_repair_method = #{commissionerRepairMethod},</if>
+        <if test="commissionerOffer != null ">commissioner_offer = #{commissionerOffer},</if>
+        <if test="commissionerOfferFilepath != null  and commissionerOfferFilepath != ''">commissioner_offer_filepath = #{commissionerOfferFilepath},</if>
+        <if test="maintenanceCheckFilepath != null  and maintenanceCheckFilepath != ''">maintenance_check_filepath = #{maintenanceCheckFilepath},</if>
+        <if test="maintenanceStatus != null  and maintenanceStatus != ''">maintenance_status = #{maintenanceStatus},</if>
+        <if test="maintenanceSettlementFilepath != null  and maintenanceSettlementFilepath != ''">maintenance_settlement_filepath = #{maintenanceSettlementFilepath},</if>
+        <if test="maintenanceTotalPrice != null ">maintenance_total_price = #{maintenanceTotalPrice},</if>
+        <if test="maintenanceSettlementMemo != null  and maintenanceSettlementMemo != ''">maintenance_settlement_memo = #{maintenanceSettlementMemo},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmMaintenanceById" parameterType="String">
+        delete from bpm_crm_maintenance where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_maintenance where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

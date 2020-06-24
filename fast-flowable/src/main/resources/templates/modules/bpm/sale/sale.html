@@ -1,0 +1,148 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="创建申请单列表">
+</@header>
+<@search fromId="sale-form">
+<div class="select-list">
+    <ul>
+<!--        <li><@ctx.i18n text = "流程实例ID"/>：<input type="text" name="processInstanceId"/></li>-->
+        <li><@ctx.i18n text = "订单号"/>：<input type="text" name="saleCode"/></li>
+        <li>
+            <@ctx.i18n text = "订单状态"/>：
+            <select name="saleStatus" class="form-control">
+                <option value=""><@ctx.i18n text = "所有"/></option>
+            <#list dict.getType('sys_sale_status')>
+                <#items as d>
+                    <#if d.status =='0' >
+                        <option value="${d.dictValue}" text="${d.dictLabel}"><@ctx.i18n text = "${d.dictLabel}"/></option>
+                    </#if>
+                </#items>
+            </#list>
+            </select>
+        </li>
+        <li><@ctx.i18n text = "客户名称"/>：<input type="text" name="saleCustomername"/></li>
+        <li><@ctx.i18n text = "客户地址"/>：<input type="text" name="saleAddress"/></li>
+        <li><@ctx.i18n text = "客户手机号"/>：<input type="text" name="salePhone"/></li>
+        <li><@ctx.i18n text = "客户邮箱"/>：<input type="text" name="saleEmail"/></li>
+        <li><@ctx.i18n text = "客户微信"/>：<input type="text" name="saleWechat"/></li>
+        <li>
+            <@ctx.i18n text = "ID"/>：
+            <select name="saleId" class="form-control">
+                <option value=""><@ctx.i18n text = "所有"/></option>
+            <#list dict.getType('sys_sale_id')>
+                <#items as d>
+                    <#if d.status =='0' >
+                        <option value="${d.dictValue}" text="${d.dictLabel}"><@ctx.i18n text = "${d.dictLabel}"/></option>
+                    </#if>
+                </#items>
+            </#list>
+            </select>
+        </li>
+<!--        <li><@ctx.i18n text = "驾照"/>：<input type="text" name="saleDriverlicense"/></li>-->
+<!--        <li><@ctx.i18n text = "护照"/>：<input type="text" name="salePassport"/></li>-->
+        <li>
+            <@ctx.i18n text = "房产"/>：
+            <select name="saleResidenceinfo" class="form-control">
+                <option value=""><@ctx.i18n text = "所有"/></option>
+            <#list dict.getType('sys_sale_resi')>
+                <#items as d>
+                    <#if d.status =='0' >
+                        <option value="${d.dictValue}" text="${d.dictLabel}"><@ctx.i18n text = "${d.dictLabel}"/></option>
+                    </#if>
+                </#items>
+            </#list>
+            </select>
+        </li>
+<!--        <li><@ctx.i18n text = "销售员"/>：<input type="text" name="salePerson"/></li>-->
+<!--        <li><@ctx.i18n text = "销售组"/>：<input type="text" name="saleTeam"/></li>-->
+<!--        <li><@ctx.i18n text = "销售经理"/>：<input type="text" name="saleManager"/></li>-->
+<!--        <li><@ctx.i18n text = "创建人"/>：<input type="text" name="userId"/></li>-->
+        <li>
+            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;&nbsp;<@ctx.i18n text = "查询"/></a>
+            <a class="btn btn-warning btn-rounded btn-sm" onclick="opt.form.reset()"><i class="fa fa-refresh"></i>&nbsp;<@ctx.i18n text = "重置"/></a>
+        </li>
+    </ul>
+</div>
+</@search>
+<@table tableId="bootstrap-table">
+    <@shiro.hasPermission name="bpm:sale:add">
+        <a class="btn btn-success" onclick="opt.operate.add()"><i class="fa fa-plus"></i>&nbsp;<@ctx.i18n text = "新增"/></a>
+    </@shiro.hasPermission>
+    <@shiro.hasPermission name="bpm:sale:edit">
+        <a class="btn btn-primary single disabled" onclick="opt.operate.edit()"><i class="fa fa-pencil-square-o"></i>&nbsp;<@ctx.i18n text = "修改"/></a>
+    </@shiro.hasPermission>
+    <@shiro.hasPermission name="bpm:sale:del">
+        <a class="btn btn-danger multiple disabled" onclick="opt.operate.delAll()"><i class="fa fa-remove"></i> <@ctx.i18n text = "删除"/></a>
+    </@shiro.hasPermission>
+</@table>
+<@footer>
+<script>
+    var editFlag = "${permission.hasPermi("bpm:sale:edit")}";
+    var listFlag = "${permission.hasPermi("bpm:sale:add")}";
+    var delFlag = "${permission.hasPermi("bpm:sale:del")}";
+    var visible = ${permission.isPermitteds("bpm:sale:edit,bpm:sale:del,bpm:sale:add")?string('true', 'false')};
+   var saleStatusDatas = ${dict.getDictListJson('sys_sale_status')};
+   var saleIdDatas = ${dict.getDictListJson('sys_sale_id')};
+   var saleResidenceinfoDatas = ${dict.getDictListJson('sys_sale_resi')};
+    var prefix = baseURL + "bpm/sale";
+
+    $(function() {
+        var insStatusDatas = ${dict.getDictListJson('sys_bpm_ins_status')};
+        var options = {
+            url: prefix + "/list",
+            addUrl: prefix + "/add",
+            editUrl: prefix + "/edit/{id}",
+            delUrl: prefix + "/del",
+            modalName: "创建申请单",
+            uniqueId:    'id'/* 唯一ID */                                                         ,
+            columns: [
+                         {title: $.i18n.prop("序号"), width: 5, align: "center", formatter: function (value, row, index) {
+                                    return $.table.serialNumber(index);
+                         }}
+                        ,{field : 'id',title : '<@ctx.i18n text = "主键"/>',visible: false}
+                        ,{field : 'processInstanceId',title : '<@ctx.i18n text = "流程实例id"/>',visible: false}
+                        ,{field : 'formName',title : '<@ctx.i18n text = "流程名称"/>'}
+                        ,{field : 'salePerson',title : '<@ctx.i18n text = "销售员"/>',visible: false}
+                        ,{field : 'saleTeam',title : '<@ctx.i18n text = "销售组"/>',visible: false}
+                        ,{field : 'saleManager',title : '<@ctx.i18n text = "销售经理"/>',visible: false}
+                        ,{field : 'saleCode',title : '<@ctx.i18n text = "订单号"/>'}
+                        ,{field : 'saleStatus',title : '<@ctx.i18n text = "订单状态"/>',formatter: function(value, row, index) {
+                                return $.table.selectDictLabels(saleStatusDatas, value);
+                        }}
+                        ,{field : 'saleCustomername',title : '<@ctx.i18n text = "客户名称"/>'}
+                        ,{field : 'saleAddress',title : '<@ctx.i18n text = "客户地址"/>'}
+                        ,{field : 'salePhone',title : '<@ctx.i18n text = "客户手机号"/>'}
+                        ,{field : 'saleEmail',title : '<@ctx.i18n text = "客户邮箱"/>'}
+                        ,{field : 'saleWechat',title : '<@ctx.i18n text = "客户微信"/>'}
+                        ,{field : 'saleId',title : '<@ctx.i18n text = "ID"/>',formatter: function(value, row, index) {
+                                return $.table.selectDictLabels(saleIdDatas, value);
+                        }}
+                        ,{field : 'saleDriverlicense',title : '<@ctx.i18n text = "驾照"/>',visible: false}
+                        ,{field : 'salePassport',title : '<@ctx.i18n text = "护照"/>',visible: false}
+                        ,{field : 'saleResidenceinfo',title : '<@ctx.i18n text = "房产"/>',formatter: function(value, row, index) {
+                                return $.table.selectDictLabels(saleResidenceinfoDatas, value);
+                        }}
+                        ,{field : 'remark',title : '<@ctx.i18n text = "备注"/>'},
+                {
+                    field: 'status', title: '<@ctx.i18n text = "流程状态"/>', formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(insStatusDatas, value);
+                    }
+                }
+                        // ,{field : 'userId',title : '<@ctx.i18n text = "创建人"/>'}
+                        ,{title:"<@ctx.i18n text = "操作"/>",align: 'left',visible:visible,formatter: function(value, row, index) {
+                            var actions = [];
+                            actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="edit(\'' + row.taskId + '\',\'' + row.businessKey +'\')"><i class="fa fa-edit"></i>编辑</a> ');
+                            actions.push('<a class="btn btn-danger btn-xs ' + delFlag + '" href="javascript:void(0)" onclick="opt.operate.del(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                            return actions.join('');
+                        }}
+                    ]
+            };
+         $.table.init(options);
+     });
+    function edit(taskId,businessKey){
+        opt.modal.open('<i class="fa icon-note"></i> <@ctx.i18n text = "详情"/>',
+            prefix + "/edit?taskId="+taskId+"&businessKey="+businessKey);
+    }
+</script>
+</@footer>
+</@pageTheme>

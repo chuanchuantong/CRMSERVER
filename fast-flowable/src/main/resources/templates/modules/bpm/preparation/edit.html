@@ -1,0 +1,104 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="修改整备">
+</@header>
+<@addorEdit fromId="form-preparation-edit">
+    <input name="id" value="${bpmCrmPreparation.id}" type="hidden">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售员" />：                               <i class="fa fa-question-circle-o" title="销售员"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleUserid" value="${bpmCrmPreparation.saleUserid?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售订单编号" />：                               <i class="fa fa-question-circle-o" title="销售订单编号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleOrderNumber" value="${bpmCrmPreparation.saleOrderNumber?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆识别号" />：                               <i class="fa fa-question-circle-o" title="车辆识别号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVin" value="${bpmCrmPreparation.outCarVin?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车型" />：                               <i class="fa fa-question-circle-o" title="车型"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVehicle" value="${bpmCrmPreparation.outCarVehicle?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="orderMemo" class="form-control" required>${bpmCrmPreparation.orderMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "服务地点"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_crm_serviceplace')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="preparationServicePlace" name="preparationServicePlace" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmPreparation.preparationServicePlace?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "服务类型"/>：</label>
+        <div class="col-sm-8">
+            <select name="preparationServiceType" class="form-control m-b" required>
+                <#list dict.getType('sys_crm_servicetype')>
+                    <#items as d>
+                        <#if d.status =='0' >
+                           <option  value="${d.dictValue}" text="${d.dictLabel}" <#if d.dictValue==bpmCrmPreparation.preparationServiceType?default("") >selected = "selected"</#if>>${d.dictLabel}</option>
+                        </#if>
+                    </#items>
+                 </#list>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "服务备忘录"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="preparationServiceMemo" class="form-control" required>${bpmCrmPreparation.preparationServiceMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "发票单号" />：                               <i class="fa fa-question-circle-o" title="整备信息-发票单号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="preparationInvoiceNumber" value="${bpmCrmPreparation.preparationInvoiceNumber?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "发票附件" />：                               <i class="fa fa-question-circle-o" title="整备信息-发票附件"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="preparationInvoiceFilepath" value="${bpmCrmPreparation.preparationInvoiceFilepath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "实际金额" />：                               <i class="fa fa-question-circle-o" title="整备信息-实际金额"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="preparationActualAmount" value="${bpmCrmPreparation.preparationActualAmount?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    var prefix = baseURL + "bpm/preparation";
+    $("#form-preparation-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/edit", $('#form-preparation-edit').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

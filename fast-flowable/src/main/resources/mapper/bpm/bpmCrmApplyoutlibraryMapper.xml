@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmApplyoutlibraryMapper">
+    
+    <resultMap type="bpmCrmApplyoutlibraryEntity" id="bpmCrmApplyoutlibraryResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="saleUserid"    column="sale_userid"    />
+        <result property="saleOrderNumber"    column="sale_order_number"    />
+        <result property="orderContractPrice"    column="order_contract_price"    />
+        <result property="orderIsTax"    column="order_is_tax"    />
+        <result property="orderIsTransport"    column="order_is_transport"    />
+        <result property="orderIsGuarantee"    column="order_is_guarantee"    />
+        <result property="orderOtherProject"    column="order_other_project"    />
+        <result property="carStockId"    column="car_stock_id"    />
+        <result property="carVin"    column="car_vin"    />
+        <result property="carVehicle"    column="car_vehicle"    />
+        <result property="carStockCost"    column="car_stock_cost"    />
+        <result property="approvalIsCross"    column="approval_is_cross"    />
+        <result property="approvalRemark"    column="approval_remark"    />
+        <result property="approvalTime"    column="approval_time"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmApplyoutlibraryVo">
+        select id, process_instance_id, sale_code, create_by, create_time, update_by, update_time, remark, user_id, del_flag, sale_userid, sale_order_number, order_contract_price, order_is_tax, order_is_transport, order_is_guarantee, order_other_project, car_stock_id, car_vin, car_vehicle, car_stock_cost, approval_is_cross, approval_remark, approval_time from bpm_crm_applyoutlibrary
+    </sql>
+
+
+<!--
+    <update id="updatebpmCrmApplyoutlibrary" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmApplyoutlibraryEntity">
+        update bpm_crm_applyoutlibrary
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+        <if test="saleUserid != null ">sale_userid = #{saleUserid},</if>
+        <if test="saleOrderNumber != null  and saleOrderNumber != ''">sale_order_number = #{saleOrderNumber},</if>
+        <if test="orderContractPrice != null ">order_contract_price = #{orderContractPrice},</if>
+        <if test="orderIsTax != null ">order_is_tax = #{orderIsTax},</if>
+        <if test="orderIsTransport != null ">order_is_transport = #{orderIsTransport},</if>
+        <if test="orderIsGuarantee != null ">order_is_guarantee = #{orderIsGuarantee},</if>
+        <if test="orderOtherProject != null  and orderOtherProject != ''">order_other_project = #{orderOtherProject},</if>
+        <if test="carStockId != null  and carStockId != ''">car_stock_id = #{carStockId},</if>
+        <if test="carVin != null  and carVin != ''">car_vin = #{carVin},</if>
+        <if test="carVehicle != null  and carVehicle != ''">car_vehicle = #{carVehicle},</if>
+        <if test="carStockCost != null ">car_stock_cost = #{carStockCost},</if>
+        <if test="approvalIsCross != null ">approval_is_cross = #{approvalIsCross},</if>
+        <if test="approvalRemark != null  and approvalRemark != ''">approval_remark = #{approvalRemark},</if>
+        <if test="approvalTime != null ">approval_time = #{approvalTime},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmApplyoutlibraryById" parameterType="String">
+        delete from bpm_crm_applyoutlibrary where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_applyoutlibrary where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

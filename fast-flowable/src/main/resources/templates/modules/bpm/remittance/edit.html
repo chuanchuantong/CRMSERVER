@@ -1,0 +1,290 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="修改汇款信息">
+</@header>
+<@addorEdit fromId="form-remittance-edit">
+    <input name="id" value="${bpmCrmRemittance.id}" type="hidden">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售员">：                               <i class="fa fa-question-circle-o" title="销售员"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleUserid" value="${bpmCrmRemittance.saleUserid?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售订单编号">：                               <i class="fa fa-question-circle-o" title="销售订单编号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleOrderNumber" value="${bpmCrmRemittance.saleOrderNumber?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆识别号">：                               <i class="fa fa-question-circle-o" title="车辆识别号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVin" value="${bpmCrmRemittance.outCarVin?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车型">：                               <i class="fa fa-question-circle-o" title="车型"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVehicle" value="${bpmCrmRemittance.outCarVehicle?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "费用发生日期"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="remittanceCostTime"  data-type="date"   value="${(bpmCrmRemittance.remittanceCostTime?string('yyyy-MM-dd'))!}" data-format="yyyy-MM-dd" type="text"  required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "报销金额">：                               <i class="fa fa-question-circle-o" title="汇款-报销金额"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittancereimburseAmount" value="${bpmCrmRemittance.remittancereimburseAmount?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "凭证">：                               <i class="fa fa-question-circle-o" title="汇款-凭证"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittanceVoucherFilepath" value="${bpmCrmRemittance.remittanceVoucherFilepath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "备注">：                               <i class="fa fa-question-circle-o" title="汇款-备注"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittanceRemark" value="${bpmCrmRemittance.remittanceRemark?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "首选付款方式"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_crm_paymethod')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="remittanceFirstPaymethod" name="remittanceFirstPaymethod" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmRemittance.remittanceFirstPaymethod?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "备忘录">：                               <i class="fa fa-question-circle-o" title="汇款-备忘录"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittanceMemo" value="${bpmCrmRemittance.remittanceMemo?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收件人姓名">：                               <i class="fa fa-question-circle-o" title="汇款-收件人姓名注：当汇款首选付款方式选择Check\Wire transfer输入此文本框"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittanceRecipientName" value="${bpmCrmRemittance.remittanceRecipientName?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收件人地址">：                               <i class="fa fa-question-circle-o" title="汇款-收件人地址注：当汇款首选付款方式选择Check\Wire transfer输入此文本框"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittanceRecipientAddress" value="${bpmCrmRemittance.remittanceRecipientAddress?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收件人手机">：                               <i class="fa fa-question-circle-o" title="汇款-收件人手机注：当汇款首选付款方式选择Check\Wire transfer输入此文本框"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittanceRecipientPhone" value="${bpmCrmRemittance.remittanceRecipientPhone?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "金额">：                               <i class="fa fa-question-circle-o" title="汇款-金额注：当汇款首选付款方式选择Wire transfer输入此文本框"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittanceAccount" value="${bpmCrmRemittance.remittanceAccount?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "汇款路径号码">：                               <i class="fa fa-question-circle-o" title="汇款-路径号码注：当汇款首选付款方式选择Wire transfer输入此文本框"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittanceRouting" value="${bpmCrmRemittance.remittanceRouting?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "银行地址">：                               <i class="fa fa-question-circle-o" title="汇款-银行地址注：当汇款首选付款方式选择Wire transfer输入此文本框"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittanceBankaddress" value="${bpmCrmRemittance.remittanceBankaddress?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "人民币汇款方式"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="remittanceRmbPaymethod" name="remittanceRmbPaymethod" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmRemittance.remittanceRmbPaymethod?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "银行名称">：                               <i class="fa fa-question-circle-o" title="汇款-银行名称注：当汇款首选付款方式选择RMB输入此文本框"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittanceRmbBankname" value="${bpmCrmRemittance.remittanceRmbBankname?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "银行账户">：                               <i class="fa fa-question-circle-o" title="汇款-银行账户注：当汇款首选付款方式选择RMB输入此文本框"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittanceRmbBankaccount" value="${bpmCrmRemittance.remittanceRmbBankaccount?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "账户名注">：                               <i class="fa fa-question-circle-o" title="汇款-账户名注：当汇款首选付款方式选择RMB输入此文本框"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="remittanceRmbAccountname" value="${bpmCrmRemittance.remittanceRmbAccountname?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审批金额">：                               <i class="fa fa-question-circle-o" title="审批-审批金额 默认值=报销金额"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="approvalAmount" value="${bpmCrmRemittance.approvalAmount?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "出纳审批"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="approvalCashier" name="approvalCashier" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmRemittance.approvalCashier?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "出纳备注">：                               <i class="fa fa-question-circle-o" title="审批-出纳备注"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="approvalCashierRemark" value="${bpmCrmRemittance.approvalCashierRemark?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "比例">：                               <i class="fa fa-question-circle-o" title="报销-比例"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="reimburseProportion" value="${bpmCrmRemittance.reimburseProportion?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "金额">：                               <i class="fa fa-question-circle-o" title="报销-金额"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="reimburseAmount" value="${bpmCrmRemittance.reimburseAmount?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "财务经理审批"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="reimburseFinanceapproval" name="reimburseFinanceapproval" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmRemittance.reimburseFinanceapproval?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "财务经理备注">：                               <i class="fa fa-question-circle-o" title="报销-财务经理备注"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="reimburseFinanceremark" value="${bpmCrmRemittance.reimburseFinanceremark?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "日期"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="payTime"  data-type="date"   value="${(bpmCrmRemittance.payTime?string('yyyy-MM-dd'))!}" data-format="yyyy-MM-dd" type="text"  required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "付款记录">：                               <i class="fa fa-question-circle-o" title="付款记录注：RMBCashCheckWire TransferZellepay"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="payMethod" value="${bpmCrmRemittance.payMethod?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "附件">：                               <i class="fa fa-question-circle-o" title="付款记录-附件"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="payProofFilepath" value="${bpmCrmRemittance.payProofFilepath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "接收人号码">：                               <i class="fa fa-question-circle-o" title="付款记录-接收人号码"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="payReceiptNumber" value="${bpmCrmRemittance.payReceiptNumber?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "备忘录">：                               <i class="fa fa-question-circle-o" title="付款记录-备忘录"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="payMemo" value="${bpmCrmRemittance.payMemo?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "结果"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="cashierResult" name="cashierResult" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmRemittance.cashierResult?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "金额">：                               <i class="fa fa-question-circle-o" title="付款记录-金额"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="cashierAmount" value="${bpmCrmRemittance.cashierAmount?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "备忘录">：                               <i class="fa fa-question-circle-o" title="付款记录-备忘录"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="cashierMemo" value="${bpmCrmRemittance.cashierMemo?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "付款总额">：                               <i class="fa fa-question-circle-o" title="付款记录-付款总额"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="cashierPaysumamount" value="${bpmCrmRemittance.cashierPaysumamount?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "备忘录">：                               <i class="fa fa-question-circle-o" title="备忘录（？？？待确认）"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="memo" value="${bpmCrmRemittance.memo?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    var prefix = baseURL + "bpm/remittance";
+    $("#form-remittance-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/edit", $('#form-remittance-edit').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

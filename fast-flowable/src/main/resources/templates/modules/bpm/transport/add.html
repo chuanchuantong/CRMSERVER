@@ -1,0 +1,284 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="新增运输">
+</@header>
+<@addorEdit fromId="form-transport-add">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售员" />:                                                   <i class="fa fa-question-circle-o" title="销售员"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="saleUserid" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售订单编号" />:                                                   <i class="fa fa-question-circle-o" title="销售订单编号"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="saleOrderNumber" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆识别号" />:                                                   <i class="fa fa-question-circle-o" title="车辆识别号"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="outCarVin" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车型" />:                                                   <i class="fa fa-question-circle-o" title="车型"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="outCarVehicle" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "提车地点"/>：</label>
+        <div class="col-sm-8">
+            <select id="transportTakeCarPlace" name="transportTakeCarPlace" class="form-control">
+                <#list dict.getType('sys_crm_takecarplace')>
+                    <#items as d>
+                        <#if d.status =='0' >
+                           <option  value="${d.dictValue}" text="${d.dictLabel}">${d.dictLabel}</option>
+                        </#if>
+                    </#items>
+                 </#list>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "选择同事" />:                                                   <i class="fa fa-question-circle-o" title="选择同事  下拉 (选项关联-提车地点=同事地址)"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="transportSelectColleague" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "提车地址" />:                                                   <i class="fa fa-question-circle-o" title="提车地址"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="transportTakeCarAddress" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "提车电话" />:                                                   <i class="fa fa-question-circle-o" title="提车电话"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="transportTakeCarPhone" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "送车地点"/>：</label>
+        <div class="col-sm-8">
+            <select id="transportGiveCarPlace" name="transportGiveCarPlace" class="form-control">
+                <#list dict.getType('sys_crm_takecarplace')>
+                    <#items as d>
+                        <#if d.status =='0' >
+                           <option  value="${d.dictValue}" text="${d.dictLabel}">${d.dictLabel}</option>
+                        </#if>
+                    </#items>
+                 </#list>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "选择同事" />:                                                   <i class="fa fa-question-circle-o" title="选择同事  下拉 (选项关联-提车地点=同事地址)"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="transportGiveSelectColleague" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "送车地址" />:                                                   <i class="fa fa-question-circle-o" title="送车地址"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="transportGiveCarAddress" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "送车电话" />:                                                   <i class="fa fa-question-circle-o" title="送车电话"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="transportGiveCarPhone" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "运输状态"/>：</label>
+        <div class="col-sm-8">
+           <#list dict.getType('sys_crm_transportstatus')>
+                <#items as d>
+                    <#if d.status =='0' >
+                        <div class="radio-box">
+                            <input type="radio" id="approvalCurrentStatus_${d.dictCode}" name="approvalCurrentStatus"
+                                   value="${d.dictValue}" <#if d.isDefault =="Y" >checked</#if>>
+                            <label for="${d.dictCode}" text="${d.dictLabel}">${d.dictLabel}</label>
+                        </div>
+                    </#if>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "状态备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="approvalCurrentStatusMemo" class="form-control" required></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "计划提车时间"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="approvalPlanTakeCarTime"  data-type="date" data-format="yyyy-MM-dd" type="text"  required>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "预计到达日"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="approvalPlanArriveTime"  data-type="date" data-format="yyyy-MM-dd" type="text"  required>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "订单ID" />:                                                   <i class="fa fa-question-circle-o" title="订单ID(外部单号)"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="approvalOrderid" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "调度费用" />:                                                   <i class="fa fa-question-circle-o" title="调度费用"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="approvalCentralDispatchFee" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "运输公司名字" />:                                                   <i class="fa fa-question-circle-o" title="运输公司名字"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="transportCompanyName" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "运输公司支票接收地址" />:                                                   <i class="fa fa-question-circle-o" title="运输公司支票接收地址"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="transportCompanyCheckAddress" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "邮寄方式"/>：</label>
+        <div class="col-sm-8">
+           <#list dict.getType('sys_crm_expresscompany')>
+                <#items as d>
+                    <#if d.status =='0' >
+                        <div class="radio-box">
+                            <input type="radio" id="transportMail_${d.dictCode}" name="transportMail"
+                                   value="${d.dictValue}" <#if d.isDefault =="Y" >checked</#if>>
+                            <label for="${d.dictCode}" text="${d.dictLabel}">${d.dictLabel}</label>
+                        </div>
+                    </#if>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="transportRemark" class="form-control" required></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "付款日期"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="cashierPayTime"  data-type="date" data-format="yyyy-MM-dd" type="text"  required>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "汇款方式"/>：</label>
+        <div class="col-sm-8">
+           <#list dict.getType('sys_crm_remitmoney')>
+                <#items as d>
+                    <#if d.status =='0' >
+                        <div class="radio-box">
+                            <input type="radio" id="cashierPayMethod_${d.dictCode}" name="cashierPayMethod"
+                                   value="${d.dictValue}" <#if d.isDefault =="Y" >checked</#if>>
+                            <label for="${d.dictCode}" text="${d.dictLabel}">${d.dictLabel}</label>
+                        </div>
+                    </#if>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "证明" />:                                                   <i class="fa fa-question-circle-o" title="付款记录-证明-附件"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="cashierPayProofFilepath" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收据单号" />:                                                   <i class="fa fa-question-circle-o" title="收据单号"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="cashierReceiptNumber" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "备注" />:                                                   <i class="fa fa-question-circle-o" title="出纳付款-备注"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="cashierPayMemo" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "支付结果"/>：</label>
+        <div class="col-sm-8">
+           <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <#if d.status =='0' >
+                        <div class="radio-box">
+                            <input type="radio" id="confirmPayMethod_${d.dictCode}" name="confirmPayMethod"
+                                   value="${d.dictValue}" <#if d.isDefault =="Y" >checked</#if>>
+                            <label for="${d.dictCode}" text="${d.dictLabel}">${d.dictLabel}</label>
+                        </div>
+                    </#if>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "金额" />:                                                   <i class="fa fa-question-circle-o" title="金额"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="confirmPayAmount" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="confirmPayMemo" class="form-control" required></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "付款总额" />:                                                   <i class="fa fa-question-circle-o" title="付款总额"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="confirmPaySum" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "运输备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="transportMemo" class="form-control" required></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "运输总费用" />:                                                   <i class="fa fa-question-circle-o" title="运输总费用"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="transportTotalCost" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    var prefix = baseURL + "bpm/transport"
+    $("#form-transport-add").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/add", $('#form-transport-add').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

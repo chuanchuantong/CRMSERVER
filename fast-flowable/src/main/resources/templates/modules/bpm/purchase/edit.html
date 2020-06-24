@@ -1,0 +1,408 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="修改采购订单">
+</@header>
+<@addorEdit fromId="form-purchase-edit">
+    <input name="id" value="${bpmCrmPurchase.id}" type="hidden">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "订单号">：                
+       </label>
+        <div class="col-sm-8"><input name="saleCode" value="${bpmCrmPurchase.saleCode?default("")}" class="form-control" type="text" >                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "备注">：                
+       </label>
+        <div class="col-sm-8"><input name="remark" value="${bpmCrmPurchase.remark?default("")}" class="form-control" type="text" >                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "申请人">：                
+       </label>
+        <div class="col-sm-8"><input name="userId" value="${bpmCrmPurchase.userId?default("")}" class="form-control" type="text" >                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><@ctx.i18n text = "销售员">：                
+       </label>
+        <div class="col-sm-8"><input name="saleUserid" value="${bpmCrmPurchase.saleUserid?default("")}" class="form-control" type="text" >                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售订单编号">：                
+       </label>
+        <div class="col-sm-8"><input name="saleOrderNumber" value="${bpmCrmPurchase.saleOrderNumber?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "合同价格">：                
+       </label>
+        <div class="col-sm-8"><input name="orderContractPrice" value="${bpmCrmPurchase.orderContractPrice?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "是否含税"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="orderIsTax" name="orderIsTax" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmPurchase.orderIsTax?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "是否包含运输费用">：                
+       </label>
+        <div class="col-sm-8"><input name="orderIsTransport" value="${bpmCrmPurchase.orderIsTransport?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "是否保修">：                
+       </label>
+        <div class="col-sm-8"><input name="orderIsGuarantee" value="${bpmCrmPurchase.orderIsGuarantee?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "其他">：                
+       </label>
+        <div class="col-sm-8"><input name="orderOtherItem" value="${bpmCrmPurchase.orderOtherItem?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆识别号">：                               <i class="fa fa-question-circle-o" title="效验17位"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="carVin" value="${bpmCrmPurchase.carVin?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆">：                
+       </label>
+        <div class="col-sm-8"><input name="carVehicle" value="${bpmCrmPurchase.carVehicle?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "里程">：                
+       </label>
+        <div class="col-sm-8"><input name="carMileage" value="${bpmCrmPurchase.carMileage?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "变速箱 "/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_crm_cartranmission')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="carTranmission" name="carTranmission" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmPurchase.carTranmission?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "驱动形式"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_crm_cardrivertrain')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="carDrivertrain" name="carDrivertrain" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmPurchase.carDrivertrain?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车况"/>：</label>
+        <div class="col-sm-8">
+            <select name="carStatus" class="form-control m-b" required>
+                <#list dict.getType('sys_crm_carstatus')>
+                    <#items as d>
+                        <#if d.status =='0' >
+                           <option  value="${d.dictValue}" text="${d.dictLabel}" <#if d.dictValue==bpmCrmPurchase.carStatus?default("") >selected = "selected"</#if>>${d.dictLabel}</option>
+                        </#if>
+                    </#items>
+                 </#list>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "最高价"/>：
+       </label>
+        <div class="col-sm-8"><input name="channelHighestPrice" value="${bpmCrmPurchase.channelHighestPrice?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "采购来源"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_crm_purchasesource')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="channelPurchaseSource" name="channelPurchaseSource" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmPurchase.channelPurchaseSource?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "是否公开销售"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="channelIsOpenSale" name="channelIsOpenSale" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmPurchase.channelIsOpenSale?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "拍卖 "/>：</label>
+        <div class="col-sm-8">
+            <select name="channelAuction" class="form-control m-b" required>
+                <#list dict.getType('sys_auction')>
+                    <#items as d>
+                        <#if d.status =='0' >
+                           <option  value="${d.dictValue}" text="${d.dictLabel}" <#if d.dictValue==bpmCrmPurchase.channelAuction?default("") >selected = "selected"</#if>>${d.dictLabel}</option>
+                        </#if>
+                    </#items>
+                 </#list>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "拍卖类型"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_crm_auctiontype')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="channelAuctionType" name="channelAuctionType" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmPurchase.channelAuctionType?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "拍卖时间类型"/>：                               <i class="fa fa-question-circle-o" title="   （默认值公式：IF(Auction Type=="Other","",IF(Auction Type=="Inlane Bid","Begin Time","Deadline"))）"></i>
+       </label>
+        <div class="col-sm-8"><input name="channelAuctionTimeType" value="${bpmCrmPurchase.channelAuctionTimeType?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "拍卖时间"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="channelAuctionTime"  data-type="date"   value="${(bpmCrmPurchase.channelAuctionTime?string('yyyy-MM-dd'))!}" data-format="yyyy-MM-dd" type="text"  required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "卖方名称"/>：
+       </label>
+        <div class="col-sm-8"><input name="channelSellerName" value="${bpmCrmPurchase.channelSellerName?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "卖方联系方式">：                
+       </label>
+        <div class="col-sm-8"><input name="channelSellerContactinfo" value="${bpmCrmPurchase.channelSellerContactinfo?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "采购备注">：                
+       </label>
+        <div class="col-sm-8"><input name="channelPurchaseMemo" value="${bpmCrmPurchase.channelPurchaseMemo?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "采购专员">：                
+       </label>
+        <div class="col-sm-8"><input name="managerPurchaseSpecialist" value="${bpmCrmPurchase.managerPurchaseSpecialist?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审查"/>：</label>
+        <div class="col-sm-8">
+           <#list dict.getType('sys_crm_review')>
+              <#assign managerReviewList = bpmCrmPurchase.managerReview?default("")?split(",") />
+                <#items as d>
+                    <#if d.status =='0' >
+                            <label><input type="checkbox" id="managerReview_${d.dictCode}" name="managerReview"
+                                   value="${d.dictValue}" <#if managerReviewList?seq_contains(d.dictValue) >checked</#if>>
+                            <label for="${d.dictCode}" text="${d.dictLabel}">${d.dictLabel}</label></label>
+                    </#if>
+                </#items>
+            </#list>
+        </div>
+    </div>
+     <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审查备注">：                
+       </label>
+        <div class="col-sm-8"><input name="managerReviewMemo" value="${bpmCrmPurchase.managerReviewMemo?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "是否采购"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="managerIsPurchase" name="managerIsPurchase" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmPurchase.managerIsPurchase?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "采购结果"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_result_status')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="purchaseResult" name="purchaseResult" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmPurchase.purchaseResult?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "结果时间"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="purchaseResultTime"  data-type="date"   value="${(bpmCrmPurchase.purchaseResultTime?string('yyyy-MM-dd'))!}" data-format="yyyy-MM-dd" type="text"  required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "结果备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="purchaseResultMemo" class="form-control" required>${bpmCrmPurchase.purchaseResultMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "是否入库"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="isWarehousing" name="isWarehousing" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmPurchase.isWarehousing?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "付款发送日期"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="cashierPaySentTime"  data-type="date"   value="${(bpmCrmPurchase.cashierPaySentTime?string('yyyy-MM-dd'))!}" data-format="yyyy-MM-dd" type="text"  required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "付款方式"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_crm_paymethod')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="cashierPayMethod" name="cashierPayMethod" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmPurchase.cashierPayMethod?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "证明">：                
+       </label>
+        <div class="col-sm-8"><input name="cashierProofFilepath" value="${bpmCrmPurchase.cashierProofFilepath?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收据单号">：                
+       </label>
+        <div class="col-sm-8"><input name="cashierReceiptNumber" value="${bpmCrmPurchase.cashierReceiptNumber?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "出纳付款备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="cashierMemo" class="form-control" required>${bpmCrmPurchase.cashierMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "支付结果"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_result_status')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="confirmPayMethod" name="confirmPayMethod" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmPurchase.confirmPayMethod?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "金额">：                
+       </label>
+        <div class="col-sm-8"><input name="confirmPayAmount" value="${bpmCrmPurchase.confirmPayAmount?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "确认走账备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="confirmMemo" class="form-control" required>${bpmCrmPurchase.confirmMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "付款总额">：                
+       </label>
+        <div class="col-sm-8"><input name="purchasePaySum" value="${bpmCrmPurchase.purchasePaySum?default("")}" class="form-control" type="text"  required>                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "采购备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="purchaseRemark" class="form-control" required>${bpmCrmPurchase.purchaseRemark?default("")}</textarea>
+        </div>
+    </div>
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    var prefix = baseURL + "bpm/purchase";
+    $("#form-purchase-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/edit", $('#form-purchase-edit').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

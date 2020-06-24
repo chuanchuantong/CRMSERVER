@@ -1,0 +1,145 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="修改维修">
+</@header>
+<@addorEdit fromId="form-maintenance-edit">
+    <input name="id" value="${bpmCrmMaintenance.id}" type="hidden">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售员" />：                               <i class="fa fa-question-circle-o" title="销售员"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleUserid" value="${bpmCrmMaintenance.saleUserid?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售订单编号" />：                               <i class="fa fa-question-circle-o" title="销售订单编号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleOrderNumber" value="${bpmCrmMaintenance.saleOrderNumber?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆识别号" />：                               <i class="fa fa-question-circle-o" title="车辆识别号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVin" value="${bpmCrmMaintenance.outCarVin?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车型" />：                               <i class="fa fa-question-circle-o" title="车型"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVehicle" value="${bpmCrmMaintenance.outCarVehicle?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "联系人" />：                               <i class="fa fa-question-circle-o" title="联系人"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="orderCarContacts" value="${bpmCrmMaintenance.orderCarContacts?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "计划入厂时间"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="orderCarPlanInTime"  data-type="date"   value="${(bpmCrmMaintenance.orderCarPlanInTime?string('yyyy-MM-dd'))!}" data-format="yyyy-MM-dd" type="text"  required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "最晚交车时间"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="orderCarLastDeliveryTime"  data-type="date"   value="${(bpmCrmMaintenance.orderCarLastDeliveryTime?string('yyyy-MM-dd'))!}" data-format="yyyy-MM-dd" type="text"  required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆位置" />：                               <i class="fa fa-question-circle-o" title="车辆位置"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="orderCarPosition" value="${bpmCrmMaintenance.orderCarPosition?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "要求或问题描述"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="orderCarRemark" class="form-control" required>${bpmCrmMaintenance.orderCarRemark?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆损失图片" />：                               <i class="fa fa-question-circle-o" title="车辆损失图片"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="orderCarLossFilepath" value="${bpmCrmMaintenance.orderCarLossFilepath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "预计交车时间"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="commissionerPlanGiveTime"  data-type="date"   value="${(bpmCrmMaintenance.commissionerPlanGiveTime?string('yyyy-MM-dd'))!}" data-format="yyyy-MM-dd" type="text"  required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "维修方法" />：                               <i class="fa fa-question-circle-o" title="维修方法"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="commissionerRepairMethod" value="${bpmCrmMaintenance.commissionerRepairMethod?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "报价" />：                               <i class="fa fa-question-circle-o" title="报价"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="commissionerOffer" value="${bpmCrmMaintenance.commissionerOffer?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "报价单" />：                               <i class="fa fa-question-circle-o" title="报价单"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="commissionerOfferFilepath" value="${bpmCrmMaintenance.commissionerOfferFilepath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "入场检查文件" />：                               <i class="fa fa-question-circle-o" title="入场检查文件"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="maintenanceCheckFilepath" value="${bpmCrmMaintenance.maintenanceCheckFilepath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "维修状态" />：                               <i class="fa fa-question-circle-o" title="维修状态"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="maintenanceStatus" value="${bpmCrmMaintenance.maintenanceStatus?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "维修结算单" />：                               <i class="fa fa-question-circle-o" title="维修结算单"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="maintenanceSettlementFilepath" value="${bpmCrmMaintenance.maintenanceSettlementFilepath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "总价" />：                               <i class="fa fa-question-circle-o" title="总价"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="maintenanceTotalPrice" value="${bpmCrmMaintenance.maintenanceTotalPrice?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "结算备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="maintenanceSettlementMemo" class="form-control" required>${bpmCrmMaintenance.maintenanceSettlementMemo?default("")}</textarea>
+        </div>
+    </div>
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    var prefix = baseURL + "bpm/maintenance";
+    $("#form-maintenance-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/edit", $('#form-maintenance-edit').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

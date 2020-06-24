@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmBackcarMapper">
+    
+    <resultMap type="bpmCrmBackcarEntity" id="bpmCrmBackcarResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="saleUserid"    column="sale_userid"    />
+        <result property="saleOrderNumber"    column="sale_order_number"    />
+        <result property="outCarVin"    column="out_car_vin"    />
+        <result property="outCarVehicle"    column="out_car_vehicle"    />
+        <result property="outCarReason"    column="out_car_reason"    />
+        <result property="salesDirectorReview"    column="sales_director_review"    />
+        <result property="salesReviewMemo"    column="sales_review_memo"    />
+        <result property="warehouseInventoryReview"    column="warehouse_inventory_review"    />
+        <result property="warehouseReviewMemo"    column="warehouse_review_memo"    />
+        <result property="warehouseAppraisalAmount"    column="warehouse_appraisal_amount"    />
+        <result property="warehouseReturnCost"    column="warehouse_return_cost"    />
+        <result property="salesDirectorFinalReview"    column="sales_director_final_review"    />
+        <result property="salesDirectorFinalMemo"    column="sales_director_final_memo"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmBackcarVo">
+        select id, process_instance_id, sale_code, create_by, create_time, update_by, update_time, remark, user_id, del_flag, sale_userid, sale_order_number, out_car_vin, out_car_vehicle, out_car_reason, sales_director_review, sales_review_memo, warehouse_inventory_review, warehouse_review_memo, warehouse_appraisal_amount, warehouse_return_cost, sales_director_final_review, sales_director_final_memo from bpm_crm_backcar
+    </sql>
+
+
+<!--
+    <update id="updatebpmCrmBackcar" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmBackcarEntity">
+        update bpm_crm_backcar
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+        <if test="saleUserid != null ">sale_userid = #{saleUserid},</if>
+        <if test="saleOrderNumber != null  and saleOrderNumber != ''">sale_order_number = #{saleOrderNumber},</if>
+        <if test="outCarVin != null  and outCarVin != ''">out_car_vin = #{outCarVin},</if>
+        <if test="outCarVehicle != null  and outCarVehicle != ''">out_car_vehicle = #{outCarVehicle},</if>
+        <if test="outCarReason != null  and outCarReason != ''">out_car_reason = #{outCarReason},</if>
+        <if test="salesDirectorReview != null ">sales_director_review = #{salesDirectorReview},</if>
+        <if test="salesReviewMemo != null  and salesReviewMemo != ''">sales_review_memo = #{salesReviewMemo},</if>
+        <if test="warehouseInventoryReview != null ">warehouse_inventory_review = #{warehouseInventoryReview},</if>
+        <if test="warehouseReviewMemo != null  and warehouseReviewMemo != ''">warehouse_review_memo = #{warehouseReviewMemo},</if>
+        <if test="warehouseAppraisalAmount != null ">warehouse_appraisal_amount = #{warehouseAppraisalAmount},</if>
+        <if test="warehouseReturnCost != null ">warehouse_return_cost = #{warehouseReturnCost},</if>
+        <if test="salesDirectorFinalReview != null ">sales_director_final_review = #{salesDirectorFinalReview},</if>
+        <if test="salesDirectorFinalMemo != null  and salesDirectorFinalMemo != ''">sales_director_final_memo = #{salesDirectorFinalMemo},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmBackcarById" parameterType="String">
+        delete from bpm_crm_backcar where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_backcar where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

@@ -1,0 +1,186 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="修改贷款信息表">
+</@header>
+<@addorEdit fromId="form-loan-edit">
+    <input name="id" value="${bpmCrmLoan.id}" type="hidden">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售订单编号" />：                               <i class="fa fa-question-circle-o" title="销售订单编号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleOrderNumber" value="${bpmCrmLoan.saleOrderNumber?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆识别号" />：                               <i class="fa fa-question-circle-o" title="车辆识别号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVin" value="${bpmCrmLoan.outCarVin?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车型" />：                               <i class="fa fa-question-circle-o" title="车型"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVehicle" value="${bpmCrmLoan.outCarVehicle?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "申请贷款金额" />：                               <i class="fa fa-question-circle-o" title="申请贷款金额"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="loanApplyMoney" value="${bpmCrmLoan.loanApplyMoney?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "申请备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="loanApplyMemo" class="form-control" required>${bpmCrmLoan.loanApplyMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "贷款专员审核"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="loanSpecialistReview" name="loanSpecialistReview" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmLoan.loanSpecialistReview?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "合同文件" />：                               <i class="fa fa-question-circle-o" title="合同文件"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="loanContractFilepath" value="${bpmCrmLoan.loanContractFilepath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "贷款金额" />：                               <i class="fa fa-question-circle-o" title="贷款金额"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="loanMoney" value="${bpmCrmLoan.loanMoney?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "职称专员流程"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="loanTitleSpecialistProcess" name="loanTitleSpecialistProcess" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmLoan.loanTitleSpecialistProcess?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "贷款文件" />：                               <i class="fa fa-question-circle-o" title="贷款文件"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="loanFilepath" value="${bpmCrmLoan.loanFilepath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "出纳审核"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="checkmoneyCashierReview" name="checkmoneyCashierReview" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmLoan.checkmoneyCashierReview?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "证明" />：                               <i class="fa fa-question-circle-o" title="证明（附件路径）"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="checkmoneyProofpath" value="${bpmCrmLoan.checkmoneyProofpath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "贷款金额审核" />：                               <i class="fa fa-question-circle-o" title="贷款金额审核"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="checkmoneyLoanamountreceived" value="${bpmCrmLoan.checkmoneyLoanamountreceived?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收据编号" />：                               <i class="fa fa-question-circle-o" title="收据编号（需要校验是否重复）"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="checkmoneyReceiptnumber" value="${bpmCrmLoan.checkmoneyReceiptnumber?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "出纳备注/备忘录"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="checkmoneyMemo" class="form-control" required>${bpmCrmLoan.checkmoneyMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "订单生效日"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="orderTakeEffectTime"  data-type="date"   value="${(bpmCrmLoan.orderTakeEffectTime?string('yyyy-MM-dd'))!}" data-format="yyyy-MM-dd" type="text"  required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收款日"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="collectionTime"  data-type="date"   value="${(bpmCrmLoan.collectionTime?string('yyyy-MM-dd'))!}" data-format="yyyy-MM-dd" type="text"  required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "利息率" />：                               <i class="fa fa-question-circle-o" title="利息率（默认千分之八）"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="interestRate" value="${bpmCrmLoan.interestRate?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "资金成本" />：                               <i class="fa fa-question-circle-o" title="资金成本（收款金额*间隔日*利息率）"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="costOfCapital" value="${bpmCrmLoan.costOfCapital?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "财务经理审核"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="financeManagerReview" name="financeManagerReview" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmLoan.financeManagerReview?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "经理复核" />：                               <i class="fa fa-question-circle-o" title="经理复核"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="managerReview" value="${bpmCrmLoan.managerReview?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    var prefix = baseURL + "bpm/loan";
+    $("#form-loan-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/edit", $('#form-loan-edit').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

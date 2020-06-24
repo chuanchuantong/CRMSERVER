@@ -1,0 +1,184 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="新增临牌">
+</@header>
+<@addorEdit fromId="form-temptag-add">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售员" />:                                                   <i class="fa fa-question-circle-o" title="销售员"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="saleUserid" class="form-control" type="number" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售订单编号" />:                                                   <i class="fa fa-question-circle-o" title="销售订单编号"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="saleOrderNumber" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆识别号" />:                                                   <i class="fa fa-question-circle-o" title="车辆识别号"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="outCarVin" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车型" />:                                                   <i class="fa fa-question-circle-o" title="车型"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="outCarVehicle" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "注册人姓名" />:                                                   <i class="fa fa-question-circle-o" title="注册人姓名"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="orderRegistrantName" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "注册人地址" />:                                                   <i class="fa fa-question-circle-o" title="注册人地址"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="orderRegistrantAddress" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "注册人手机" />:                                                   <i class="fa fa-question-circle-o" title="注册人手机"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="orderRegistrantPhone" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "是否需要邮件"/>：</label>
+        <div class="col-sm-8">
+           <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <#if d.status =='0' >
+                        <div class="radio-box">
+                            <input type="radio" id="orderIsNeedMail_${d.dictCode}" name="orderIsNeedMail"
+                            <#if d.isDefault =="Y" >value="1"</#if> <#if d.isDefault !="Y" >value="0"</#if> <#if d.isDefault =="Y" >checked</#if>>
+                            <label for="${d.dictCode}" text="${d.dictLabel}">${d.dictLabel}</label>
+                        </div>
+                    </#if>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group showMail">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收件人是否同注册人"/>：</label>
+        <div class="col-sm-8">
+           <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <#if d.status =='0' >
+                        <div class="radio-box">
+                            <input type="radio" id="orderRecipientisregistrant_${d.dictCode}" name="orderRecipientisregistrant"
+                            <#if d.isDefault =="Y" >value="1"</#if> <#if d.isDefault !="Y" >value="0"</#if> <#if d.isDefault =="Y" >checked</#if>>
+                            <label for="${d.dictCode}" text="${d.dictLabel}">${d.dictLabel}</label>
+                        </div>
+                    </#if>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group different">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收件人姓名" />:
+        </label>
+        <div class="col-sm-8"><input name="orderRecipientName" class="form-control" type="text" required>
+        </div>
+    </div>
+    <div class="form-group different">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收件人地址" />:
+        </label>
+        <div class="col-sm-8"><input name="orderRecipientAddress" class="form-control" type="text" required>
+        </div>
+    </div>
+    <div class="form-group different">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收件人手机" />:
+        </label>
+        <div class="col-sm-8"><input name="orderRecipientPhone" class="form-control" type="text" required>
+        </div>
+    </div>
+    <div class="form-group different">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "邮件备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="orderRecipientMailMemo" class="form-control" required></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "选择临时号牌" />:                                                   <i class="fa fa-question-circle-o" title="从临牌库存里选择  （过滤条件-库存状态=已入库）"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="selectTempTagNumber" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "发货信息" />:                                                   <i class="fa fa-question-circle-o" title="发货信息"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="shippingInfo" class="form-control" type="text" required>                                        
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "运费" />:                                                   <i class="fa fa-question-circle-o" title="运费"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="shippingFee" class="form-control" type="number" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "临牌费" />:                                                   <i class="fa fa-question-circle-o" title="临牌费  （默认值=15）"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="tempTagFee" class="form-control" type="number" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "总费用" />:                                                   <i class="fa fa-question-circle-o" title="总费用    公式：SUM(Temp tag fee,Shipping fee)"></i>                                  
+        </label>
+        <div class="col-sm-8"><input name="totalFee" class="form-control" type="number" required>
+        </div>
+    </div>
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    $(function(){
+        $("[name='orderIsNeedMail']").on("ifChecked",function(){
+            var isNeed=$(this).val()=='1';
+            if(isNeed){
+                $(".showMail").show();
+                if($("[name='orderRecipientisregistrant']")[0].checked){
+                    $(".different").hide();
+                }
+                else{
+                    $(".different").show();
+                }
+            }
+            else{
+                $(".showMail").hide();
+                $(".different").hide();
+            }
+        })
+        $("[name='orderRecipientisregistrant']").on("ifChecked",function(){
+            var isNeed=$(this).val()=='1';
+            if(isNeed){
+                $(".different").hide();
+            }
+            else{
+                $(".different").show();
+            }
+        })
+        $(".different").hide();
+    })
+    var prefix = baseURL + "bpm/temptag"
+    $("#form-temptag-add").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        console.log("验证对象为",opt)
+        console.log("传输前的对象为",$('#form-temptag-add').serialize())
+        var dataString=$('#form-temptag-add').serialize();
+        if(!$("[name='orderRecipientisregistrant']")[0].checked){
+
+        }
+        console.log("传输后的对象为",)
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/add", $('#form-temptag-add').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

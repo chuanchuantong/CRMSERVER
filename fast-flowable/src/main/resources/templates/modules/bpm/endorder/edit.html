@@ -1,0 +1,306 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="修改结束订单">
+</@header>
+<@addorEdit fromId="form-endorder-edit">
+    <input name="id" value="${bpmCrmEndorder.id}" type="hidden">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售员" />：                               <i class="fa fa-question-circle-o" title="销售员"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleUserid" value="${bpmCrmEndorder.saleUserid?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆识别号" />：                               <i class="fa fa-question-circle-o" title="车辆识别号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVin" value="${bpmCrmEndorder.outCarVin?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车型" />：                               <i class="fa fa-question-circle-o" title="车型"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="outCarVehicle" value="${bpmCrmEndorder.outCarVehicle?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "结束类型  正常结束/取消订单"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_crm_orderendtype')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="orderEndType" name="orderEndType" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmEndorder.orderEndType?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="orderMemo" class="form-control" required>${bpmCrmEndorder.orderMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "实收总和" />：                               <i class="fa fa-question-circle-o" title="实收总和"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="creditRealitySum" value="${bpmCrmEndorder.creditRealitySum?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "收款单据" />：                               <i class="fa fa-question-circle-o" title="收款单据"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="creditBillFilepath" value="${bpmCrmEndorder.creditBillFilepath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "类别" />：                               <i class="fa fa-question-circle-o" title="总额库存运输维修临牌过户报销汇款整备退车其他"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="costType" value="${bpmCrmEndorder.costType?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "金额" />：                               <i class="fa fa-question-circle-o" title="对应成本金额"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="costAmount" value="${bpmCrmEndorder.costAmount?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "流程单据" />：                               <i class="fa fa-question-circle-o" title="所有业务流程单据"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="costAllBusinessFilepath" value="${bpmCrmEndorder.costAllBusinessFilepath?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "实收总和" />：                               <i class="fa fa-question-circle-o" title="实收总和"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="commissionRealitySum" value="${bpmCrmEndorder.commissionRealitySum?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "目前成本" />：                               <i class="fa fa-question-circle-o" title="目前成本"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="commissionCurrentCost" value="${bpmCrmEndorder.commissionCurrentCost?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "最终利润" />：                               <i class="fa fa-question-circle-o" title="最终利润"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="commissionFinalProfit" value="${bpmCrmEndorder.commissionFinalProfit?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "最终业绩" />：                               <i class="fa fa-question-circle-o" title="最终业绩"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="commissionFinalAchievement" value="${bpmCrmEndorder.commissionFinalAchievement?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "提成比例" />：                               <i class="fa fa-question-circle-o" title="提成比例"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="commissionPercentage" value="${bpmCrmEndorder.commissionPercentage?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "最终提成" />：                               <i class="fa fa-question-circle-o" title="最终提成"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="commissionFinalCommission" value="${bpmCrmEndorder.commissionFinalCommission?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售总监审核"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="approvalSalesDirector" name="approvalSalesDirector" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmEndorder.approvalSalesDirector?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审查备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="approvalSalesDirectorMemo" class="form-control" required>${bpmCrmEndorder.approvalSalesDirectorMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "整修评审/复盘/整理评审意见"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="approvalReconditioning" name="approvalReconditioning" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmEndorder.approvalReconditioning?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审查备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="approvalReconditioningMemo" class="form-control" required>${bpmCrmEndorder.approvalReconditioningMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "维修中心审核"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="approvalMaintenanceCenter" name="approvalMaintenanceCenter" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmEndorder.approvalMaintenanceCenter?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审查备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="approvalMaintenanceCenterMemo" class="form-control" required>${bpmCrmEndorder.approvalMaintenanceCenterMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "运输审核"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="approvalTransport" name="approvalTransport" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmEndorder.approvalTransport?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审查备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="approvalTransportMemo" class="form-control" required>${bpmCrmEndorder.approvalTransportMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "出纳审核"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="approvalCashier" name="approvalCashier" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmEndorder.approvalCashier?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审查备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="approvalCashierMemo" class="form-control" required>${bpmCrmEndorder.approvalCashierMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "盘点"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="approvalInventory" name="approvalInventory" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmEndorder.approvalInventory?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审查备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="approvalInventoryMemo" class="form-control" required>${bpmCrmEndorder.approvalInventoryMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "税务审核"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="approvalTax" name="approvalTax" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmEndorder.approvalTax?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审查备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="approvalTaxMemo" class="form-control" required>${bpmCrmEndorder.approvalTaxMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "会计审核"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="approvalAccounting" name="approvalAccounting" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmEndorder.approvalAccounting?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审查备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="approvalAccountingMemo" class="form-control" required>${bpmCrmEndorder.approvalAccountingMemo?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售总监审核"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="approvalSalesDirectorReview" name="approvalSalesDirectorReview" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmEndorder.approvalSalesDirectorReview?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审查备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="approvalSalesDirectorReviewMemo" class="form-control" required>${bpmCrmEndorder.approvalSalesDirectorReviewMemo?default("")}</textarea>
+        </div>
+    </div>
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    var prefix = baseURL + "bpm/endorder";
+    $("#form-endorder-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/edit", $('#form-endorder-edit').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

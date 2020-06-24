@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmTransferMapper">
+    
+    <resultMap type="bpmCrmTransferEntity" id="bpmCrmTransferResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="saleUserid"    column="sale_userid"    />
+        <result property="saleOrderNumber"    column="sale_order_number"    />
+        <result property="outCarVin"    column="out_car_vin"    />
+        <result property="outCarVehicle"    column="out_car_vehicle"    />
+        <result property="orderSpecialRemark"    column="order_special_remark"    />
+        <result property="orderCashierReview"    column="order_cashier_review"    />
+        <result property="orderFinanceManagerReview"    column="order_finance_manager_review"    />
+        <result property="orderCustomerSsn"    column="order_customer_ssn"    />
+        <result property="orderCustomerIFilepath"    column="order_customer_i_filepath"    />
+        <result property="orderRegistrantName"    column="order_registrant_name"    />
+        <result property="orderRegistrantAddress"    column="order_registrant_address"    />
+        <result property="orderRegistrantPhone"    column="order_registrant_phone"    />
+        <result property="orderIsNeedMail"    column="order_is_need_mail"    />
+        <result property="orderRecipientisregistrant"    column="order_recipientisregistrant"    />
+        <result property="orderRecipientName"    column="order_recipient_name"    />
+        <result property="orderRecipientAddress"    column="order_recipient_address"    />
+        <result property="orderRecipientPhone"    column="order_recipient_phone"    />
+        <result property="orderRecipientMailMemo"    column="order_recipient_mail_memo"    />
+        <result property="taxAmount"    column="tax_amount"    />
+        <result property="taxServiceCharge"    column="tax_service_charge"    />
+        <result property="taxFreight"    column="tax_freight"    />
+        <result property="taxShippingInfo"    column="tax_shipping_info"    />
+        <result property="taxTransferDate"    column="tax_transfer_date"    />
+        <result property="outboundPrimarkKey"    column="outbound_primark_key"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmTransferVo">
+        select id, process_instance_id, sale_code, create_by, create_time, update_by, update_time, remark, user_id, del_flag, sale_userid, sale_order_number, out_car_vin, out_car_vehicle, order_special_remark, order_cashier_review, order_finance_manager_review, order_customer_ssn, order_customer_i_filepath, order_registrant_name, order_registrant_address, order_registrant_phone, order_is_need_mail, order_recipientisregistrant, order_recipient_name, order_recipient_address, order_recipient_phone, order_recipient_mail_memo, tax_amount, tax_service_charge, tax_freight, tax_shipping_info, tax_transfer_date, outbound_primark_key from bpm_crm_transfer
+    </sql>
+
+
+<!--
+    <update id="updatebpmCrmTransfer" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmTransferEntity">
+        update bpm_crm_transfer
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+        <if test="saleUserid != null ">sale_userid = #{saleUserid},</if>
+        <if test="saleOrderNumber != null  and saleOrderNumber != ''">sale_order_number = #{saleOrderNumber},</if>
+        <if test="outCarVin != null  and outCarVin != ''">out_car_vin = #{outCarVin},</if>
+        <if test="outCarVehicle != null  and outCarVehicle != ''">out_car_vehicle = #{outCarVehicle},</if>
+        <if test="orderSpecialRemark != null  and orderSpecialRemark != ''">order_special_remark = #{orderSpecialRemark},</if>
+        <if test="orderCashierReview != null ">order_cashier_review = #{orderCashierReview},</if>
+        <if test="orderFinanceManagerReview != null ">order_finance_manager_review = #{orderFinanceManagerReview},</if>
+        <if test="orderCustomerSsn != null  and orderCustomerSsn != ''">order_customer_ssn = #{orderCustomerSsn},</if>
+        <if test="orderCustomerIFilepath != null  and orderCustomerIFilepath != ''">order_customer_i_filepath = #{orderCustomerIFilepath},</if>
+        <if test="orderRegistrantName != null  and orderRegistrantName != ''">order_registrant_name = #{orderRegistrantName},</if>
+        <if test="orderRegistrantAddress != null  and orderRegistrantAddress != ''">order_registrant_address = #{orderRegistrantAddress},</if>
+        <if test="orderRegistrantPhone != null  and orderRegistrantPhone != ''">order_registrant_phone = #{orderRegistrantPhone},</if>
+        <if test="orderIsNeedMail != null ">order_is_need_mail = #{orderIsNeedMail},</if>
+        <if test="orderRecipientisregistrant != null ">order_recipientisregistrant = #{orderRecipientisregistrant},</if>
+        <if test="orderRecipientName != null  and orderRecipientName != ''">order_recipient_name = #{orderRecipientName},</if>
+        <if test="orderRecipientAddress != null  and orderRecipientAddress != ''">order_recipient_address = #{orderRecipientAddress},</if>
+        <if test="orderRecipientPhone != null  and orderRecipientPhone != ''">order_recipient_phone = #{orderRecipientPhone},</if>
+        <if test="orderRecipientMailMemo != null  and orderRecipientMailMemo != ''">order_recipient_mail_memo = #{orderRecipientMailMemo},</if>
+        <if test="taxAmount != null ">tax_amount = #{taxAmount},</if>
+        <if test="taxServiceCharge != null ">tax_service_charge = #{taxServiceCharge},</if>
+        <if test="taxFreight != null ">tax_freight = #{taxFreight},</if>
+        <if test="taxShippingInfo != null  and taxShippingInfo != ''">tax_shipping_info = #{taxShippingInfo},</if>
+        <if test="taxTransferDate != null ">tax_transfer_date = #{taxTransferDate},</if>
+        <if test="outboundPrimarkKey != null  and outboundPrimarkKey != ''">outbound_primark_key = #{outboundPrimarkKey},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmTransferById" parameterType="String">
+        delete from bpm_crm_transfer where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_transfer where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

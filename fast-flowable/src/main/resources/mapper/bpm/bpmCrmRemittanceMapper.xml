@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmRemittanceMapper">
+    
+    <resultMap type="bpmCrmRemittanceEntity" id="bpmCrmRemittanceResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="saleUserid"    column="sale_userid"    />
+        <result property="saleOrderNumber"    column="sale_order_number"    />
+        <result property="outCarVin"    column="out_car_vin"    />
+        <result property="outCarVehicle"    column="out_car_vehicle"    />
+        <result property="remittanceCostTime"    column="remittance_cost_time"    />
+        <result property="remittancereimburseAmount"    column="remittance_
+reimburse_amount"    />
+        <result property="remittanceVoucherFilepath"    column="remittance_voucher_filepath"    />
+        <result property="remittanceRemark"    column="remittance_remark"    />
+        <result property="remittanceFirstPaymethod"    column="remittance_first_paymethod"    />
+        <result property="remittanceMemo"    column="remittance_memo"    />
+        <result property="remittanceRecipientName"    column="remittance_recipient_name"    />
+        <result property="remittanceRecipientAddress"    column="remittance_recipient_address"    />
+        <result property="remittanceRecipientPhone"    column="remittance_recipient_phone"    />
+        <result property="remittanceAccount"    column="remittance_account"    />
+        <result property="remittanceRouting"    column="remittance_routing"    />
+        <result property="remittanceBankaddress"    column="remittance_bankaddress"    />
+        <result property="remittanceRmbPaymethod"    column="remittance_rmb_paymethod"    />
+        <result property="remittanceRmbBankname"    column="remittance_rmb_bankname"    />
+        <result property="remittanceRmbBankaccount"    column="remittance_rmb_bankaccount"    />
+        <result property="remittanceRmbAccountname"    column="remittance_rmb_accountname"    />
+        <result property="approvalAmount"    column="approval_amount"    />
+        <result property="approvalCashier"    column="approval_cashier"    />
+        <result property="approvalCashierRemark"    column="approval_cashier_remark"    />
+        <result property="reimburseProportion"    column="reimburse_proportion"    />
+        <result property="reimburseAmount"    column="reimburse_amount"    />
+        <result property="reimburseFinanceapproval"    column="reimburse_financeapproval"    />
+        <result property="reimburseFinanceremark"    column="reimburse_financeremark"    />
+        <result property="payTime"    column="pay_time"    />
+        <result property="payMethod"    column="pay_method"    />
+        <result property="payProofFilepath"    column="pay_proof_filepath"    />
+        <result property="payReceiptNumber"    column="pay_receipt_number"    />
+        <result property="payMemo"    column="pay_memo"    />
+        <result property="cashierResult"    column="cashier_result"    />
+        <result property="cashierAmount"    column="cashier_amount"    />
+        <result property="cashierMemo"    column="cashier_memo"    />
+        <result property="cashierPaysumamount"    column="cashier_paysumamount"    />
+        <result property="memo"    column="memo"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmRemittanceVo">
+        select id, process_instance_id, sale_code, create_by, create_time, update_by, update_time, remark, user_id, del_flag, sale_userid, sale_order_number, out_car_vin, out_car_vehicle, remittance_cost_time, remittance_
+reimburse_amount, remittance_voucher_filepath, remittance_remark, remittance_first_paymethod, remittance_memo, remittance_recipient_name, remittance_recipient_address, remittance_recipient_phone, remittance_account, remittance_routing, remittance_bankaddress, remittance_rmb_paymethod, remittance_rmb_bankname, remittance_rmb_bankaccount, remittance_rmb_accountname, approval_amount, approval_cashier, approval_cashier_remark, reimburse_proportion, reimburse_amount, reimburse_financeapproval, reimburse_financeremark, pay_time, pay_method, pay_proof_filepath, pay_receipt_number, pay_memo, cashier_result, cashier_amount, cashier_memo, cashier_paysumamount, memo from bpm_crm_remittance
+    </sql>
+
+
+<!--
+    <update id="updatebpmCrmRemittance" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmRemittanceEntity">
+        update bpm_crm_remittance
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+        <if test="saleUserid != null ">sale_userid = #{saleUserid},</if>
+        <if test="saleOrderNumber != null  and saleOrderNumber != ''">sale_order_number = #{saleOrderNumber},</if>
+        <if test="outCarVin != null  and outCarVin != ''">out_car_vin = #{outCarVin},</if>
+        <if test="outCarVehicle != null  and outCarVehicle != ''">out_car_vehicle = #{outCarVehicle},</if>
+        <if test="remittanceCostTime != null ">remittance_cost_time = #{remittanceCostTime},</if>
+        <if test="remittancereimburseAmount != null ">remittance_
+reimburse_amount = #{remittancereimburseAmount},</if>
+        <if test="remittanceVoucherFilepath != null  and remittanceVoucherFilepath != ''">remittance_voucher_filepath = #{remittanceVoucherFilepath},</if>
+        <if test="remittanceRemark != null  and remittanceRemark != ''">remittance_remark = #{remittanceRemark},</if>
+        <if test="remittanceFirstPaymethod != null ">remittance_first_paymethod = #{remittanceFirstPaymethod},</if>
+        <if test="remittanceMemo != null  and remittanceMemo != ''">remittance_memo = #{remittanceMemo},</if>
+        <if test="remittanceRecipientName != null  and remittanceRecipientName != ''">remittance_recipient_name = #{remittanceRecipientName},</if>
+        <if test="remittanceRecipientAddress != null  and remittanceRecipientAddress != ''">remittance_recipient_address = #{remittanceRecipientAddress},</if>
+        <if test="remittanceRecipientPhone != null  and remittanceRecipientPhone != ''">remittance_recipient_phone = #{remittanceRecipientPhone},</if>
+        <if test="remittanceAccount != null ">remittance_account = #{remittanceAccount},</if>
+        <if test="remittanceRouting != null  and remittanceRouting != ''">remittance_routing = #{remittanceRouting},</if>
+        <if test="remittanceBankaddress != null  and remittanceBankaddress != ''">remittance_bankaddress = #{remittanceBankaddress},</if>
+        <if test="remittanceRmbPaymethod != null ">remittance_rmb_paymethod = #{remittanceRmbPaymethod},</if>
+        <if test="remittanceRmbBankname != null  and remittanceRmbBankname != ''">remittance_rmb_bankname = #{remittanceRmbBankname},</if>
+        <if test="remittanceRmbBankaccount != null  and remittanceRmbBankaccount != ''">remittance_rmb_bankaccount = #{remittanceRmbBankaccount},</if>
+        <if test="remittanceRmbAccountname != null  and remittanceRmbAccountname != ''">remittance_rmb_accountname = #{remittanceRmbAccountname},</if>
+        <if test="approvalAmount != null ">approval_amount = #{approvalAmount},</if>
+        <if test="approvalCashier != null ">approval_cashier = #{approvalCashier},</if>
+        <if test="approvalCashierRemark != null  and approvalCashierRemark != ''">approval_cashier_remark = #{approvalCashierRemark},</if>
+        <if test="reimburseProportion != null ">reimburse_proportion = #{reimburseProportion},</if>
+        <if test="reimburseAmount != null ">reimburse_amount = #{reimburseAmount},</if>
+        <if test="reimburseFinanceapproval != null ">reimburse_financeapproval = #{reimburseFinanceapproval},</if>
+        <if test="reimburseFinanceremark != null  and reimburseFinanceremark != ''">reimburse_financeremark = #{reimburseFinanceremark},</if>
+        <if test="payTime != null ">pay_time = #{payTime},</if>
+        <if test="payMethod != null ">pay_method = #{payMethod},</if>
+        <if test="payProofFilepath != null  and payProofFilepath != ''">pay_proof_filepath = #{payProofFilepath},</if>
+        <if test="payReceiptNumber != null  and payReceiptNumber != ''">pay_receipt_number = #{payReceiptNumber},</if>
+        <if test="payMemo != null  and payMemo != ''">pay_memo = #{payMemo},</if>
+        <if test="cashierResult != null ">cashier_result = #{cashierResult},</if>
+        <if test="cashierAmount != null ">cashier_amount = #{cashierAmount},</if>
+        <if test="cashierMemo != null  and cashierMemo != ''">cashier_memo = #{cashierMemo},</if>
+        <if test="cashierPaysumamount != null ">cashier_paysumamount = #{cashierPaysumamount},</if>
+        <if test="memo != null  and memo != ''">memo = #{memo},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmRemittanceById" parameterType="String">
+        delete from bpm_crm_remittance where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_remittance where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

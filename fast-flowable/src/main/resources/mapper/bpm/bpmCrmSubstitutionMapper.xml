@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmSubstitutionMapper">
+    
+    <resultMap type="bpmCrmSubstitutionEntity" id="bpmCrmSubstitutionResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="saleUserid"    column="sale_userid"    />
+        <result property="saleOrderNumber"    column="sale_order_number"    />
+        <result property="outCarVin"    column="out_car_vin"    />
+        <result property="outCarVehicle"    column="out_car_vehicle"    />
+        <result property="inCarVin"    column="in_car_vin"    />
+        <result property="inCarVehicle"    column="in_car_vehicle"    />
+        <result property="inCarMileage"    column="in_car_mileage"    />
+        <result property="inCarAskprice"    column="in_car_askprice"    />
+        <result property="inCarTradememo"    column="in_car_tradememo"    />
+        <result property="purchaseRemark"    column="purchase_remark"    />
+        <result property="purchaseIsbuy"    column="purchase_isbuy"    />
+        <result property="purchaseEvaluation"    column="purchase_evaluation"    />
+        <result property="warehouseInCheck"    column="warehouse_in_check"    />
+        <result property="warehouseInEvaluation"    column="warehouse_in_evaluation"    />
+        <result property="warehouseInRemark"    column="warehouse_in_remark"    />
+        <result property="warehouseInFile"    column="warehouse_in_file"    />
+        <result property="filehumanInFilepath"    column="filehuman_in_filepath"    />
+        <result property="filehumanInRemark"    column="filehuman_in_remark"    />
+        <result property="checkmoneyCashierReview"    column="checkmoney_cashier_review"    />
+        <result property="checkmoneyProofpath"    column="checkmoney_proofpath"    />
+        <result property="checkmoneyLoanamountreceived"    column="checkmoney_loanamountreceived"    />
+        <result property="checkmoneyReceiptnumber"    column="checkmoney_receiptnumber"    />
+        <result property="checkmoneyMemo"    column="checkmoney_memo"    />
+        <result property="orderTakeEffectTime"    column="order_take_effect_time"    />
+        <result property="collectionTime"    column="collection_time"    />
+        <result property="intervalDay"    column="interval_day"    />
+        <result property="interestRate"    column="interest_rate"    />
+        <result property="costOfCapital"    column="cost_of_capital"    />
+        <result property="financeManagerReview"    column="finance_manager_review"    />
+        <result property="managerReview"    column="manager_review"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmSubstitutionVo">
+        select id, process_instance_id, sale_code, create_by, create_time, update_by, update_time, remark, user_id, del_flag, sale_userid, sale_order_number, out_car_vin, out_car_vehicle, in_car_vin, in_car_vehicle, in_car_mileage, in_car_askprice, in_car_tradememo, purchase_remark, purchase_isbuy, purchase_evaluation, warehouse_in_check, warehouse_in_evaluation, warehouse_in_remark, warehouse_in_file, filehuman_in_filepath, filehuman_in_remark, checkmoney_cashier_review, checkmoney_proofpath, checkmoney_loanamountreceived, checkmoney_receiptnumber, checkmoney_memo, order_take_effect_time, collection_time, interval_day, interest_rate, cost_of_capital, finance_manager_review, manager_review from bpm_crm_substitution
+    </sql>
+
+
+<!--
+    <update id="updatebpmCrmSubstitution" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmSubstitutionEntity">
+        update bpm_crm_substitution
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+        <if test="saleUserid != null ">sale_userid = #{saleUserid},</if>
+        <if test="saleOrderNumber != null  and saleOrderNumber != ''">sale_order_number = #{saleOrderNumber},</if>
+        <if test="outCarVin != null  and outCarVin != ''">out_car_vin = #{outCarVin},</if>
+        <if test="outCarVehicle != null  and outCarVehicle != ''">out_car_vehicle = #{outCarVehicle},</if>
+        <if test="inCarVin != null  and inCarVin != ''">in_car_vin = #{inCarVin},</if>
+        <if test="inCarVehicle != null  and inCarVehicle != ''">in_car_vehicle = #{inCarVehicle},</if>
+        <if test="inCarMileage != null ">in_car_mileage = #{inCarMileage},</if>
+        <if test="inCarAskprice != null ">in_car_askprice = #{inCarAskprice},</if>
+        <if test="inCarTradememo != null  and inCarTradememo != ''">in_car_tradememo = #{inCarTradememo},</if>
+        <if test="purchaseRemark != null  and purchaseRemark != ''">purchase_remark = #{purchaseRemark},</if>
+        <if test="purchaseIsbuy != null ">purchase_isbuy = #{purchaseIsbuy},</if>
+        <if test="purchaseEvaluation != null ">purchase_evaluation = #{purchaseEvaluation},</if>
+        <if test="warehouseInCheck != null ">warehouse_in_check = #{warehouseInCheck},</if>
+        <if test="warehouseInEvaluation != null ">warehouse_in_evaluation = #{warehouseInEvaluation},</if>
+        <if test="warehouseInRemark != null  and warehouseInRemark != ''">warehouse_in_remark = #{warehouseInRemark},</if>
+        <if test="warehouseInFile != null ">warehouse_in_file = #{warehouseInFile},</if>
+        <if test="filehumanInFilepath != null  and filehumanInFilepath != ''">filehuman_in_filepath = #{filehumanInFilepath},</if>
+        <if test="filehumanInRemark != null  and filehumanInRemark != ''">filehuman_in_remark = #{filehumanInRemark},</if>
+        <if test="checkmoneyCashierReview != null ">checkmoney_cashier_review = #{checkmoneyCashierReview},</if>
+        <if test="checkmoneyProofpath != null  and checkmoneyProofpath != ''">checkmoney_proofpath = #{checkmoneyProofpath},</if>
+        <if test="checkmoneyLoanamountreceived != null ">checkmoney_loanamountreceived = #{checkmoneyLoanamountreceived},</if>
+        <if test="checkmoneyReceiptnumber != null  and checkmoneyReceiptnumber != ''">checkmoney_receiptnumber = #{checkmoneyReceiptnumber},</if>
+        <if test="checkmoneyMemo != null  and checkmoneyMemo != ''">checkmoney_memo = #{checkmoneyMemo},</if>
+        <if test="orderTakeEffectTime != null ">order_take_effect_time = #{orderTakeEffectTime},</if>
+        <if test="collectionTime != null ">collection_time = #{collectionTime},</if>
+        <if test="intervalDay != null ">interval_day = #{intervalDay},</if>
+        <if test="interestRate != null ">interest_rate = #{interestRate},</if>
+        <if test="costOfCapital != null ">cost_of_capital = #{costOfCapital},</if>
+        <if test="financeManagerReview != null ">finance_manager_review = #{financeManagerReview},</if>
+        <if test="managerReview != null  and managerReview != ''">manager_review = #{managerReview},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmSubstitutionById" parameterType="String">
+        delete from bpm_crm_substitution where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_substitution where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

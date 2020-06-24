@@ -1,0 +1,4 @@
+.uploadpadding .layui-table td, .layui-table th{
+    padding: 1px 4px !important;
+    font-size: 12px;
+}

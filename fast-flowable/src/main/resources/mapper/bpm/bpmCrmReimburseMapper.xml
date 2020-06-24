@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmReimburseMapper">
+    
+    <resultMap type="bpmCrmReimburseEntity" id="bpmCrmReimburseResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="saleUserid"    column="sale_userid"    />
+        <result property="saleOrderNumber"    column="sale_order_number"    />
+        <result property="outCarVin"    column="out_car_vin"    />
+        <result property="outCarVehicle"    column="out_car_vehicle"    />
+        <result property="reimburseTime"    column="reimburse_time"    />
+        <result property="reimburseAmount"    column="reimburse_amount"    />
+        <result property="reimburseAttaFilepath"    column="reimburse_atta_filepath"    />
+        <result property="cashierAmount"    column="cashier_amount"    />
+        <result property="cashierApproval"    column="cashier_approval"    />
+        <result property="cashierRemark"    column="cashier_remark"    />
+        <result property="financeProportion"    column="finance_proportion"    />
+        <result property="financeAmount"    column="finance_amount"    />
+        <result property="financeApproval"    column="finance_approval"    />
+        <result property="financeRemark"    column="finance_remark"    />
+        <result property="accountingApproval"    column="accounting_approval"    />
+        <result property="accountingRemark"    column="accounting_remark"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmReimburseVo">
+        select id, process_instance_id, sale_code, create_by, create_time, update_by, update_time, remark, user_id, del_flag, sale_userid, sale_order_number, out_car_vin, out_car_vehicle, reimburse_time, reimburse_amount, reimburse_atta_filepath, cashier_amount, cashier_approval, cashier_remark, finance_proportion, finance_amount, finance_approval, finance_remark, accounting_approval, accounting_remark from bpm_crm_reimburse
+    </sql>
+
+
+<!--
+    <update id="updatebpmCrmReimburse" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmReimburseEntity">
+        update bpm_crm_reimburse
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+        <if test="saleUserid != null ">sale_userid = #{saleUserid},</if>
+        <if test="saleOrderNumber != null  and saleOrderNumber != ''">sale_order_number = #{saleOrderNumber},</if>
+        <if test="outCarVin != null  and outCarVin != ''">out_car_vin = #{outCarVin},</if>
+        <if test="outCarVehicle != null  and outCarVehicle != ''">out_car_vehicle = #{outCarVehicle},</if>
+        <if test="reimburseTime != null ">reimburse_time = #{reimburseTime},</if>
+        <if test="reimburseAmount != null ">reimburse_amount = #{reimburseAmount},</if>
+        <if test="reimburseAttaFilepath != null  and reimburseAttaFilepath != ''">reimburse_atta_filepath = #{reimburseAttaFilepath},</if>
+        <if test="cashierAmount != null ">cashier_amount = #{cashierAmount},</if>
+        <if test="cashierApproval != null ">cashier_approval = #{cashierApproval},</if>
+        <if test="cashierRemark != null  and cashierRemark != ''">cashier_remark = #{cashierRemark},</if>
+        <if test="financeProportion != null ">finance_proportion = #{financeProportion},</if>
+        <if test="financeAmount != null ">finance_amount = #{financeAmount},</if>
+        <if test="financeApproval != null ">finance_approval = #{financeApproval},</if>
+        <if test="financeRemark != null  and financeRemark != ''">finance_remark = #{financeRemark},</if>
+        <if test="accountingApproval != null ">accounting_approval = #{accountingApproval},</if>
+        <if test="accountingRemark != null  and accountingRemark != ''">accounting_remark = #{accountingRemark},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmReimburseById" parameterType="String">
+        delete from bpm_crm_reimburse where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_reimburse where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

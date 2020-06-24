@@ -1,0 +1,141 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="修改申请出库">
+</@header>
+<@addorEdit fromId="form-applyoutlibrary-edit">
+    <input name="id" value="${bpmCrmApplyoutlibrary.id}" type="hidden">
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售员" />：                               <i class="fa fa-question-circle-o" title="销售员"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleUserid" value="${bpmCrmApplyoutlibrary.saleUserid?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "销售订单编号" />：                               <i class="fa fa-question-circle-o" title="销售订单编号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="saleOrderNumber" value="${bpmCrmApplyoutlibrary.saleOrderNumber?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "合同价" />：                               <i class="fa fa-question-circle-o" title="合同价"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="orderContractPrice" value="${bpmCrmApplyoutlibrary.orderContractPrice?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "是否包税"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="orderIsTax" name="orderIsTax" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmApplyoutlibrary.orderIsTax?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "是否包运输"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="orderIsTransport" name="orderIsTransport" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmApplyoutlibrary.orderIsTransport?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "是否保修"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_yes_no')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="orderIsGuarantee" name="orderIsGuarantee" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmApplyoutlibrary.orderIsGuarantee?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "其他项目" />：                               <i class="fa fa-question-circle-o" title="其他项目"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="orderOtherProject" value="${bpmCrmApplyoutlibrary.orderOtherProject?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "选择库存id" />：                               <i class="fa fa-question-circle-o" title="选择库存id   （选择库存表，过滤条件（库存状态=已入库，是否预订=No，可售状态=YES））"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="carStockId" value="${bpmCrmApplyoutlibrary.carStockId?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆识别码" />：                               <i class="fa fa-question-circle-o" title="车辆识别码"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="carVin" value="${bpmCrmApplyoutlibrary.carVin?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "车辆型号" />：                               <i class="fa fa-question-circle-o" title="车辆型号"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="carVehicle" value="${bpmCrmApplyoutlibrary.carVehicle?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "库存成本" />：                               <i class="fa fa-question-circle-o" title="库存成本"></i>                                
+       </label>
+        <div class="col-sm-8"><input name="carStockCost" value="${bpmCrmApplyoutlibrary.carStockCost?default("")}" class="form-control" type="text"  required>                                                
+        </div>
+     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "是否通过审批"/>：</label>
+        <div class="col-sm-8">
+            <#list dict.getType('sys_bpm_crm_passorclose')>
+                <#items as d>
+                    <div class="radio-box">
+                        <input type="radio" id="approvalIsCross" name="approvalIsCross" value="${d.dictValue}"
+                               <#if d.dictValue == bpmCrmApplyoutlibrary.approvalIsCross?default("") >checked</#if>  required/>
+                        <label for="${d.dictCode}">${d.dictLabel}</label>
+                    </div>
+                </#items>
+            </#list>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审批备注"/>：</label>
+        <div class="col-sm-8">
+            <textarea name="approvalRemark" class="form-control" required>${bpmCrmApplyoutlibrary.approvalRemark?default("")}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"><span style="color: red; ">*</span><@ctx.i18n text = "审批日期"/>：</label>
+        <div class="col-sm-8">
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input class="form-control time-input" name="approvalTime"  data-type="date"   value="${(bpmCrmApplyoutlibrary.approvalTime?string('yyyy-MM-dd'))!}" data-format="yyyy-MM-dd" type="text"  required/>
+            </div>
+        </div>
+    </div>
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    var prefix = baseURL + "bpm/applyoutlibrary";
+    $("#form-applyoutlibrary-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/edit", $('#form-applyoutlibrary-edit').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

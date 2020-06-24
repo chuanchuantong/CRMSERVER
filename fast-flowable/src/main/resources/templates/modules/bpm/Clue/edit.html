@@ -1,0 +1,22 @@
+<#include "/common/include.html"/>
+<@pageTheme mark="${config.optimize()?string('true', 'false')}">
+<@header title="修改线索池">
+</@header>
+<@addorEdit fromId="form-Clue-edit">
+    <input name="Id" value="${clue.Id}" type="hidden">
+</@addorEdit>
+<@footer>
+<script type="text/javascript">
+    var prefix = baseURL + "bpm/Clue";
+    $("#form-Clue-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if (opt.validate.form()) {
+            opt.operate.save(prefix + "/edit", $('#form-Clue-edit').serialize());
+        }
+    }
+</script>
+</@footer>
+</@pageTheme>

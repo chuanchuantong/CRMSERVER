@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j2eefast.flowable.bpm.mapper.bpmCrmTransportMapper">
+    
+    <resultMap type="bpmCrmTransportEntity" id="bpmCrmTransportResult">
+        <result property="id"    column="id"    />
+        <result property="processInstanceId"    column="process_instance_id"    />
+        <result property="saleCode"    column="sale_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="saleUserid"    column="sale_userid"    />
+        <result property="saleOrderNumber"    column="sale_order_number"    />
+        <result property="outCarVin"    column="out_car_vin"    />
+        <result property="outCarVehicle"    column="out_car_vehicle"    />
+        <result property="transportTakeCarPlace"    column="transport_take_car_place"    />
+        <result property="transportSelectColleague"    column="transport_select_colleague"    />
+        <result property="transportTakeCarAddress"    column="transport_take_car_address"    />
+        <result property="transportTakeCarPhone"    column="transport_take_car_phone"    />
+        <result property="transportGiveCarPlace"    column="transport_give_car_place"    />
+        <result property="transportGiveSelectColleague"    column="transport_give_select_colleague"    />
+        <result property="transportGiveCarAddress"    column="transport_give_car_address"    />
+        <result property="transportGiveCarPhone"    column="transport_give_car_phone"    />
+        <result property="approvalCurrentStatus"    column="approval_current_status"    />
+        <result property="approvalCurrentStatusMemo"    column="approval_current_status_memo"    />
+        <result property="approvalPlanTakeCarTime"    column="approval_plan_take_car_time"    />
+        <result property="approvalPlanArriveTime"    column="approval_plan_arrive_time"    />
+        <result property="approvalOrderid"    column="approval_orderid"    />
+        <result property="approvalCentralDispatchFee"    column="approval_central_dispatch_fee"    />
+        <result property="transportCompanyName"    column="transport_company_name"    />
+        <result property="transportCompanyCheckAddress"    column="transport_company_check_address"    />
+        <result property="transportMail"    column="transport_mail"    />
+        <result property="transportRemark"    column="transport_remark"    />
+        <result property="cashierPayTime"    column="cashier_pay_time"    />
+        <result property="cashierPayMethod"    column="cashier_pay_method"    />
+        <result property="cashierPayProofFilepath"    column="cashier_pay_proof_filepath"    />
+        <result property="cashierReceiptNumber"    column="cashier_receipt_number"    />
+        <result property="cashierPayMemo"    column="cashier_pay_memo"    />
+        <result property="confirmPayMethod"    column="confirm_pay_method"    />
+        <result property="confirmPayAmount"    column="confirm_pay_amount"    />
+        <result property="confirmPayMemo"    column="confirm_pay_memo"    />
+        <result property="confirmPaySum"    column="confirm_pay_sum"    />
+        <result property="transportMemo"    column="transport_memo"    />
+        <result property="transportTotalCost"    column="transport_total_cost"    />
+    </resultMap>
+
+    <sql id="selectbpmCrmTransportVo">
+        select id, process_instance_id, sale_code, create_by, create_time, update_by, update_time, remark, user_id, del_flag, sale_userid, sale_order_number, out_car_vin, out_car_vehicle, transport_take_car_place, transport_select_colleague, transport_take_car_address, transport_take_car_phone, transport_give_car_place, transport_give_select_colleague, transport_give_car_address, transport_give_car_phone, approval_current_status, approval_current_status_memo, approval_plan_take_car_time, approval_plan_arrive_time, approval_orderid, approval_central_dispatch_fee, transport_company_name, transport_company_check_address, transport_mail, transport_remark, cashier_pay_time, cashier_pay_method, cashier_pay_proof_filepath, cashier_receipt_number, cashier_pay_memo, confirm_pay_method, confirm_pay_amount, confirm_pay_memo, confirm_pay_sum, transport_memo, transport_total_cost from bpm_crm_transport
+    </sql>
+
+
+<!--
+    <update id="updatebpmCrmTransport" parameterType="com.j2eefast.flowable.bpm.entity.bpmCrmTransportEntity">
+        update bpm_crm_transport
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="processInstanceId != null  and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+        <if test="saleCode != null  and saleCode != ''">sale_code = #{saleCode},</if>
+        <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+        <if test="createTime != null ">create_time = #{createTime},</if>
+        <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        <if test="updateTime != null ">update_time = #{updateTime},</if>
+        <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        <if test="userId != null ">user_id = #{userId},</if>
+        <if test="delFlag != null  and delFlag != ''">del_flag = #{delFlag},</if>
+        <if test="saleUserid != null ">sale_userid = #{saleUserid},</if>
+        <if test="saleOrderNumber != null  and saleOrderNumber != ''">sale_order_number = #{saleOrderNumber},</if>
+        <if test="outCarVin != null  and outCarVin != ''">out_car_vin = #{outCarVin},</if>
+        <if test="outCarVehicle != null  and outCarVehicle != ''">out_car_vehicle = #{outCarVehicle},</if>
+        <if test="transportTakeCarPlace != null ">transport_take_car_place = #{transportTakeCarPlace},</if>
+        <if test="transportSelectColleague != null  and transportSelectColleague != ''">transport_select_colleague = #{transportSelectColleague},</if>
+        <if test="transportTakeCarAddress != null  and transportTakeCarAddress != ''">transport_take_car_address = #{transportTakeCarAddress},</if>
+        <if test="transportTakeCarPhone != null  and transportTakeCarPhone != ''">transport_take_car_phone = #{transportTakeCarPhone},</if>
+        <if test="transportGiveCarPlace != null ">transport_give_car_place = #{transportGiveCarPlace},</if>
+        <if test="transportGiveSelectColleague != null  and transportGiveSelectColleague != ''">transport_give_select_colleague = #{transportGiveSelectColleague},</if>
+        <if test="transportGiveCarAddress != null  and transportGiveCarAddress != ''">transport_give_car_address = #{transportGiveCarAddress},</if>
+        <if test="transportGiveCarPhone != null  and transportGiveCarPhone != ''">transport_give_car_phone = #{transportGiveCarPhone},</if>
+        <if test="approvalCurrentStatus != null ">approval_current_status = #{approvalCurrentStatus},</if>
+        <if test="approvalCurrentStatusMemo != null  and approvalCurrentStatusMemo != ''">approval_current_status_memo = #{approvalCurrentStatusMemo},</if>
+        <if test="approvalPlanTakeCarTime != null ">approval_plan_take_car_time = #{approvalPlanTakeCarTime},</if>
+        <if test="approvalPlanArriveTime != null ">approval_plan_arrive_time = #{approvalPlanArriveTime},</if>
+        <if test="approvalOrderid != null  and approvalOrderid != ''">approval_orderid = #{approvalOrderid},</if>
+        <if test="approvalCentralDispatchFee != null ">approval_central_dispatch_fee = #{approvalCentralDispatchFee},</if>
+        <if test="transportCompanyName != null  and transportCompanyName != ''">transport_company_name = #{transportCompanyName},</if>
+        <if test="transportCompanyCheckAddress != null  and transportCompanyCheckAddress != ''">transport_company_check_address = #{transportCompanyCheckAddress},</if>
+        <if test="transportMail != null ">transport_mail = #{transportMail},</if>
+        <if test="transportRemark != null  and transportRemark != ''">transport_remark = #{transportRemark},</if>
+        <if test="cashierPayTime != null ">cashier_pay_time = #{cashierPayTime},</if>
+        <if test="cashierPayMethod != null ">cashier_pay_method = #{cashierPayMethod},</if>
+        <if test="cashierPayProofFilepath != null  and cashierPayProofFilepath != ''">cashier_pay_proof_filepath = #{cashierPayProofFilepath},</if>
+        <if test="cashierReceiptNumber != null  and cashierReceiptNumber != ''">cashier_receipt_number = #{cashierReceiptNumber},</if>
+        <if test="cashierPayMemo != null  and cashierPayMemo != ''">cashier_pay_memo = #{cashierPayMemo},</if>
+        <if test="confirmPayMethod != null ">confirm_pay_method = #{confirmPayMethod},</if>
+        <if test="confirmPayAmount != null ">confirm_pay_amount = #{confirmPayAmount},</if>
+        <if test="confirmPayMemo != null  and confirmPayMemo != ''">confirm_pay_memo = #{confirmPayMemo},</if>
+        <if test="confirmPaySum != null ">confirm_pay_sum = #{confirmPaySum},</if>
+        <if test="transportMemo != null  and transportMemo != ''">transport_memo = #{transportMemo},</if>
+        <if test="transportTotalCost != null ">transport_total_cost = #{transportTotalCost},</if>
+            update_time = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletebpmCrmTransportById" parameterType="String">
+        delete from bpm_crm_transport where id = #{id}
+    </delete>
+
+    <delete id="deleteBatch" parameterType="String">
+        delete from bpm_crm_transport where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+</mapper>

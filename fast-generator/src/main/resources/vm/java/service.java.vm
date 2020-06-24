@@ -1,0 +1,104 @@
+package ${packageName}.service;
+
+import ${packageName}.entity.${ClassName}Entity;
+import ${packageName}.mapper.${ClassName}Mapper;
+import com.j2eefast.common.core.page.Query;
+import com.j2eefast.common.core.utils.PageUtil;
+import com.j2eefast.common.core.utils.ToolUtil;
+import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import javax.annotation.Resource;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.Map;
+import java.util.Arrays;
+/**
+ *
+ * ${functionName}Service接口
+ * @author: ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${ClassName}Service extends ServiceImpl<${ClassName}Mapper,${ClassName}Entity> {
+
+	@Resource
+	private ${ClassName}Mapper ${className}Mapper;
+
+	/**
+	 * 页面分页查询
+     */
+	public PageUtil findPage(Map<String, Object> params) {
+				QueryWrapper<${ClassName}Entity> r = new QueryWrapper<${ClassName}Entity>();##
+#foreach($column in $columns)##
+    #set($queryType=$column.queryType)## 查询方式（EQ等于、NE不等于、GT大于、LT小于、LIKE模糊、BETWEEN范围）
+    #set($javaField=$column.javaField)## JAVA字段名
+    #set($javaType=$column.javaType) ## JAVA类型
+    #set($columnName=$column.columnName) ## 列名称
+    #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})##
+    #if($column.query)##
+
+				String $javaField = (String) params.get("$javaField");##
+        #if($column.queryType == "EQ")##
+
+				r.eq(ToolUtil.isNotEmpty($javaField), "$columnName", $javaField);##
+        #elseif($column.queryType == "NE")##
+
+				r.ne(ToolUtil.isNotEmpty($javaField), "$columnName"e, $javaField);##
+        #elseif($column.queryType == "GT")##
+
+				r.gt(ToolUtil.isNotEmpty($javaField),"$columnName", $javaField);##
+        #elseif($column.queryType == "LT")##
+
+				r.lt(ToolUtil.isNotEmpty($javaField), "$columnName", $javaField);##
+        #elseif($column.queryType == "LIKE")##
+
+				r.like(ToolUtil.isNotEmpty($javaField), "$columnName", $javaField);##
+        ##                    #elseif($column.queryType == "BETWEEN")
+        ##                        r.between(StrUtil.isNotNull($javaField), $columnName, $javaField))
+		#end
+    #end
+#end
+
+				Page<${ClassName}Entity> page = this.baseMapper.selectPage(new Query<${ClassName}Entity>(params).getPage(), r);##
+
+				return new PageUtil(page);##
+
+    }
+
+	/**
+     * 批量删除
+     */
+	@Transactional(rollbackFor = Exception.class)
+	public boolean delete${ClassName}ByIds(${pkColumn.javaType}[] ids) {
+		return this.removeByIds(Arrays.asList(ids));
+	}
+
+	/**
+     * 单个删除
+     */
+	public boolean delete${ClassName}ById(${pkColumn.javaType} ${pkColumn.javaField}) {
+		return this.removeById(${pkColumn.javaField});
+	}
+
+	/**
+     * 保存
+     */
+	public boolean save${ClassName}(${ClassName}Entity ${className}){
+        return this.save(${className});
+    }
+
+	/**
+     * 修改根居ID
+     */
+	public boolean update${ClassName}ById(${ClassName}Entity ${className}) {
+		return this.updateById(${className});
+	}
+
+	/**
+     * 根居ID获取对象
+     */
+	public ${ClassName}Entity get${ClassName}ById(${pkColumn.javaType} ${pkColumn.javaField}){
+		return this.getById(${pkColumn.javaField});
+	}
+}
